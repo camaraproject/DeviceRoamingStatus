@@ -11,9 +11,7 @@
 
 Incubating API Repository to evolve and maintain the definitions and documentation of DeviceRoamingStatus Service API(s) within the Sub Project [Device Status](https://lf-camaraproject.atlassian.net/wiki/x/6wApBQ)
 
-* API Repository [wiki page](https://lf-camaraproject.atlassian.net/wiki/spaces/CAM/overview?mode=global)
-> [!NOTE]
-> Replace the API Repository wiki page link with the actual link when the wiki page is created (and remove this note)
+* API Repository [wiki page](https://lf-camaraproject.atlassian.net/wiki/spaces/CAM/pages/127729674/DeviceRoamingStatus)
 
 ## Scope
 
