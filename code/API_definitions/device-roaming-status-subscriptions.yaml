@@ -653,7 +653,7 @@ components:
           $ref: "#/components/schemas/Protocol"
         sink:
           type: string
-          format: url
+          format: uri
           description: The address to which events shall be delivered using the selected protocol.
           example: "https://endpoint.example.com/sink"
         types:
@@ -1689,7 +1689,7 @@ components:
         sink: "https://endpoint.example.com/sink"
         sinkCredential: {
           "credentialType": "ACCESSTOKEN",
-          "accessToken": "JhbGciOiJSUzI1NiIsImtpZCI6Imk2bEdrM0ZaenhSY1ViMkMzbkVRN3N5SEpsW",
+          "accessToken": "xxx",
           "accessTokenExpiresUtc": "2024-02-17T16:23:45Z",
           "accessTokenType": "bearer"
         }
