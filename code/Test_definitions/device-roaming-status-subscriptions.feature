@@ -517,7 +517,7 @@ Feature: Device Roaming Status Subscriptions API, vwip - Operations createDevice
     And the response property "$.code" is "UNAUTHENTICATED"
     And the response property "$.message" contains a user friendly text
 
-  @roaming_status_subscriptions_retrieve__list_401.10_no_authorization_header
+  @roaming_status_subscriptions_retrieve_list_401.10_no_authorization_header
   Scenario: No Authorization header
     Given the request header "Authorization" is removed
     When the request "deleteDeviceRoamingStatusSubscriptionList" is sent
