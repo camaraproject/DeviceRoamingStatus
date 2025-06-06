@@ -27,7 +27,7 @@ info:
 
     * **Country** : Country code and name - visited country information, provided if the device is in roaming situation.
 
-    * **LastStatusTime** : This property specifies the time when the status was last updated. Its presence in the response indicates the freshness of the information, while its absence implies the information may be outdated or its freshness is uncertain.
+    * **LastStatusTime** : The time when the status was last confirmed to be correct. An older status is more likely to now be incorrect.
 
     # API Functionality
 
@@ -182,6 +182,7 @@ components:
     RoamingStatusResponse:
       type: object
       required:
+        - lastStatusTime
         - roaming
       properties:
         lastStatusTime:
