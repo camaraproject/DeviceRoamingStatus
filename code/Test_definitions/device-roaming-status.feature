@@ -35,7 +35,7 @@ Feature: CAMARA Device Roaming Status API, vwip - Operation getRoamingStatus
     And the response property "$.roaming" is "true"
     And the response property "$.countryCode" has the value "262" as the Mobile Country Code (MCC) for Germany
     And the response property "$.countryName" is a non-empty array containing the ISO 3166 ALPHA-2 country-code ["DE"]
-    And if the response property "$.lastStatusTime" is present, then the value has a valid date-time format
+    And the response property "$.lastStatusTime" is present and has a valid date-time format for a time in the past
 
   @device_roaming_status_02_roaming_status_false
   Scenario: Check the roaming state synchronously if the device is not in the roaming mode
@@ -50,7 +50,7 @@ Feature: CAMARA Device Roaming Status API, vwip - Operation getRoamingStatus
     And the response property "$.roaming" is "false"
     And the response property "$.countryCode" is not present
     And the response property "$.countryName" is not present
-    And if the response property "$.lastStatusTime" is present, then the value is a valid date-time format
+    And the response property "$.lastStatusTime" is present and has a valid date-time format for a time in the past
 
 #################
 # Error scenarios for management of input parameter device
