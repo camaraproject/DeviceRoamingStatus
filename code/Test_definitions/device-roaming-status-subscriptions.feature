@@ -432,7 +432,7 @@ Feature: Device Roaming Status Subscriptions API, vwip - Operations createDevice
     And the response header "Content-Type" is "application/json"
     When the request "createDeviceRoamingStatusSubscription" is sent
     Then the response property "$.status" is 401
-    And the response property "$.code" is "UNAUTHENTICATED" or "AUTHENTICATION_REQUIRED"
+    And the response property "$.code" is "UNAUTHENTICATED"
     And the response property "$.message" contains a user friendly text
 
   @roaming_status_subscriptions_creation_401.2_expired_access_token
@@ -443,7 +443,7 @@ Feature: Device Roaming Status Subscriptions API, vwip - Operations createDevice
     Then the response status code is 401
     And the response header "Content-Type" is "application/json"
     And the response property "$.status" is 401
-    And the response property "$.code" is "UNAUTHENTICATED" or "AUTHENTICATION_REQUIRED"
+    And the response property "$.code" is "UNAUTHENTICATED"
     And the response property "$.message" contains a user friendly text
 
   @roaming_status_subscriptions_creation_401.3_malformed_access_token
@@ -454,7 +454,7 @@ Feature: Device Roaming Status Subscriptions API, vwip - Operations createDevice
     Then the response status code is 401
     And the response header "Content-Type" is "application/json"
     And the response property "$.status" is 401
-    And the response property "$.code" is "UNAUTHENTICATED" or "AUTHENTICATION_REQUIRED"
+    And the response property "$.code" is "UNAUTHENTICATED"
     And the response property "$.message" contains a user friendly text
 
   @roaming_status_subscriptions_retrieve_401.4_no_authorization_header
@@ -464,7 +464,7 @@ Feature: Device Roaming Status Subscriptions API, vwip - Operations createDevice
     Then the response status code is 401
     And the response header "Content-Type" is "application/json"
     And the response property "$.status" is 401
-    And the response property "$.code" is "UNAUTHENTICATED" or "AUTHENTICATION_REQUIRED"
+    And the response property "$.code" is "UNAUTHENTICATED"
     And the response property "$.message" contains a user friendly text
 
   @roaming_status_subscriptions_retrieve_401.5_expired_access_token
@@ -474,7 +474,7 @@ Feature: Device Roaming Status Subscriptions API, vwip - Operations createDevice
     Then the response status code is 401
     And the response header "Content-Type" is "application/json"
     And the response property "$.status" is 401
-    And the response property "$.code" is "UNAUTHENTICATED" or "AUTHENTICATION_REQUIRED"
+    And the response property "$.code" is "UNAUTHENTICATED"
     And the response property "$.message" contains a user friendly text
 
   @roaming_status_subscriptions_retrieve_401.6_malformed_access_token
@@ -484,7 +484,7 @@ Feature: Device Roaming Status Subscriptions API, vwip - Operations createDevice
     Then the response status code is 401
     And the response header "Content-Type" is "application/json"
     And the response property "$.status" is 401
-    And the response property "$.code" is "UNAUTHENTICATED" or "AUTHENTICATION_REQUIRED"
+    And the response property "$.code" is "UNAUTHENTICATED"
     And the response property "$.message" contains a user friendly text
 
   @roaming_status_subscriptions_delete_401.7_no_authorization_header
@@ -494,7 +494,7 @@ Feature: Device Roaming Status Subscriptions API, vwip - Operations createDevice
     Then the response status code is 401
     And the response header "Content-Type" is "application/json"
     And the response property "$.status" is 401
-    And the response property "$.code" is "UNAUTHENTICATED" or "AUTHENTICATION_REQUIRED"
+    And the response property "$.code" is "UNAUTHENTICATED"
     And the response property "$.message" contains a user friendly text
 
   @roaming_status_subscriptions_delete_401.8_expired_access_token
@@ -504,7 +504,7 @@ Feature: Device Roaming Status Subscriptions API, vwip - Operations createDevice
     Then the response status code is 401
     And the response header "Content-Type" is "application/json"
     And the response property "$.status" is 401
-    And the response property "$.code" is "UNAUTHENTICATED" or "AUTHENTICATION_REQUIRED"
+    And the response property "$.code" is "UNAUTHENTICATED"
     And the response property "$.message" contains a user friendly text
 
   @roaming_status_subscriptions_delete_401.9_malformed_access_token
@@ -514,17 +514,17 @@ Feature: Device Roaming Status Subscriptions API, vwip - Operations createDevice
     Then the response status code is 401
     And the response header "Content-Type" is "application/json"
     And the response property "$.status" is 401
-    And the response property "$.code" is "UNAUTHENTICATED" or "AUTHENTICATION_REQUIRED"
+    And the response property "$.code" is "UNAUTHENTICATED"
     And the response property "$.message" contains a user friendly text
 
-  @roaming_status_subscriptions_retrieve__list_401.10_no_authorization_header
+  @roaming_status_subscriptions_retrieve_list_401.10_no_authorization_header
   Scenario: No Authorization header
     Given the request header "Authorization" is removed
     When the request "deleteDeviceRoamingStatusSubscriptionList" is sent
     Then the response status code is 401
     And the response header "Content-Type" is "application/json"
     And the response property "$.status" is 401
-    And the response property "$.code" is "UNAUTHENTICATED" or "AUTHENTICATION_REQUIRED"
+    And the response property "$.code" is "UNAUTHENTICATED"
     And the response property "$.message" contains a user friendly text
 
   @roaming_status_subscriptions_retrieve_list_401.11_expired_access_token
@@ -534,7 +534,7 @@ Feature: Device Roaming Status Subscriptions API, vwip - Operations createDevice
     Then the response status code is 401
     And the response header "Content-Type" is "application/json"
     And the response property "$.status" is 401
-    And the response property "$.code" is "UNAUTHENTICATED" or "AUTHENTICATION_REQUIRED"
+    And the response property "$.code" is "UNAUTHENTICATED"
     And the response property "$.message" contains a user friendly text
 
   @roaming_status_subscriptions_retrieve_list_401.12_malformed_access_token
@@ -544,7 +544,7 @@ Feature: Device Roaming Status Subscriptions API, vwip - Operations createDevice
     Then the response status code is 401
     And the response header "Content-Type" is "application/json"
     And the response property "$.status" is 401
-    And the response property "$.code" is "UNAUTHENTICATED" or "AUTHENTICATION_REQUIRED"
+    And the response property "$.code" is "UNAUTHENTICATED"
     And the response property "$.message" contains a user friendly text
 
 ##################
@@ -555,7 +555,7 @@ Feature: Device Roaming Status Subscriptions API, vwip - Operations createDevice
   Scenario: subscription creation without having the required scope
     Given the header "Authorization" set to an access token not including scope "device-roaming-status-subscriptions:org.camaraproject.device-roaming-status-subscriptions.v0.roaming-on:create"
     And the request body is compliant with the schema "#/components/schemas/SubscriptionRequest"
-    And the request body property "$.types" is equal to "device-roaming-status-subscriptions:org.camaraproject.device-roaming-status-subscriptions.v0.roaming-on"
+    And the request body property "$.types" is equal to "org.camaraproject.device-roaming-status-subscriptions.v0.roaming-on"
     When the request "createDeviceRoamingStatusSubscription" is sent
     Then the response status code is 403
     And the response property "$.status" is 403
@@ -566,7 +566,7 @@ Feature: Device Roaming Status Subscriptions API, vwip - Operations createDevice
   Scenario: subscription creation without having the required scope
     Given the header "Authorization" set to an access token not including scope "device-roaming-status-subscriptions:org.camaraproject.device-roaming-status-subscriptions.v0.roaming-off:create"
     And the request body is compliant with the schema "#/components/schemas/SubscriptionRequest"
-    And the request body property "$.types" is equal to "device-roaming-status-subscriptions:org.camaraproject.device-roaming-status-subscriptions.v0.roaming-off"
+    And the request body property "$.types" is equal to "org.camaraproject.device-roaming-status-subscriptions.v0.roaming-off"
     When the request "createDeviceRoamingStatusSubscription" is sent
     Then the response status code is 403
     And the response property "$.status" is 403
@@ -577,7 +577,7 @@ Feature: Device Roaming Status Subscriptions API, vwip - Operations createDevice
   Scenario: subscription creation without having the required scope
     Given the header "Authorization" set to an access token not including scope "device-roaming-status-subscriptions:org.camaraproject.device-roaming-status-subscriptions.v0.roaming-status:create"
     And the request body is compliant with the schema "#/components/schemas/SubscriptionRequest"
-    And the request body property "$.types" is equal to "device-roaming-status-subscriptions:org.camaraproject.device-roaming-status-subscriptions.v0.roaming-status"
+    And the request body property "$.types" is equal to "org.camaraproject.device-roaming-status-subscriptions.v0.roaming-status"
     When the request "createDeviceRoamingStatusSubscription" is sent
     Then the response status code is 403
     And the response property "$.status" is 403
@@ -588,7 +588,7 @@ Feature: Device Roaming Status Subscriptions API, vwip - Operations createDevice
   Scenario: subscription creation without having the required scope
     Given the header "Authorization" set to an access token not including scope "device-roaming-status-subscriptions:org.camaraproject.device-roaming-status-subscriptions.v0.roaming-change-country:create"
     And the request body is compliant with the schema "#/components/schemas/SubscriptionRequest"
-    And the request body property "$.types" is equal to "device-roaming-status-subscriptions:org.camaraproject.device-roaming-status-subscriptions.v0.roaming-change-country"
+    And the request body property "$.types" is equal to "org.camaraproject.device-roaming-status-subscriptions.v0.roaming-change-country"
     When the request "createDeviceRoamingStatusSubscription" is sent
     Then the response status code is 403
     And the response property "$.status" is 403
