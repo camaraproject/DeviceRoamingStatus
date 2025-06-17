@@ -1631,7 +1631,7 @@ components:
         types:
           - "org.camaraproject.device-roaming-status-subscriptions.v0.roaming-on"
         config:
-          subscriptionDetail:
+          subscriptionDetail: {}
           subscriptionExpireTime: "2024-07-17T13:18:23.682Z"
           subscriptionMaxEvents: 5
           initialEvent: true
@@ -1665,7 +1665,7 @@ components:
         types:
           - "org.camaraproject.device-roaming-status-subscriptions.v0.roaming-on"
         config:
-          subscriptionDetail:
+          subscriptionDetail: {}
           subscriptionExpireTime: "2024-07-17T13:18:23.682Z"
           subscriptionMaxEvents: 5
           initialEvent: true
@@ -1681,7 +1681,7 @@ components:
         types:
           - "org.camaraproject.device-roaming-status-subscriptions.v0.roaming-on"
         config:
-          subscriptionDetail:
+          subscriptionDetail: {}
           subscriptionExpireTime: "2024-07-17T13:18:23.682Z"
           subscriptionMaxEvents: 5
           initialEvent: true
