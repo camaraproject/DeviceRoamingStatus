@@ -1737,4 +1737,4 @@ components:
 
     EMPTY_SUBSCRIPTION_LIST:
       description: The API consumer either has no subscriptions or, if a 3-legged access token is used, has none for the device associated with that token.
-      value: {}
+      value: []
