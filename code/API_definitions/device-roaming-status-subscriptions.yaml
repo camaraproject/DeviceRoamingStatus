@@ -815,25 +815,6 @@ components:
       items:
         type: string
 
-    NotificationEventType:
-      type: string
-      description: |
-        roaming-status - Event triggered when the device switch from roaming ON to roaming OFF and conversely
-
-        roaming-on - Event triggered when the device switch from roaming OFF to roaming ON
-
-        roaming-off - Event triggered when the device switch from roaming ON to roaming OFF
-
-        roaming-change-country - Event triggered when the device in roaming change country code
-
-        subscription-ended - Event triggered when the subscription is terminated
-      enum:
-        - org.camaraproject.device-roaming-status-subscriptions.v0.roaming-status
-        - org.camaraproject.device-roaming-status-subscriptions.v0.roaming-on
-        - org.camaraproject.device-roaming-status-subscriptions.v0.roaming-off
-        - org.camaraproject.device-roaming-status-subscriptions.v0.roaming-change-country
-        - org.camaraproject.device-roaming-status-subscriptions.v0.subscription-ended
-
     SubscriptionAsync:
       description: Response for a device reachability status operation managed asynchronously (Creation or Deletion)
       type: object
