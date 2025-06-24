@@ -222,31 +222,31 @@ Feature: Device Roaming Status Subscriptions API, vwip - Operations createDevice
     And the notification property "$.data.countryName" is present and includes a list of all countries corresponding to the country code
 
   @roaming_status_subscriptions_12_subscription_expiry
-  Scenario: Receive notification for subscription-ends event on expiry
+  Scenario: Receive notification for subscription-ended event on expiry
     Given a valid subscription for a device exists with "subscriptionId" equal to "id"
     And the subscription property "$.subscriptionExpireTime" is set to a value in the near future
     And the subscription property "$.sink" is a valid callback URL
     When the subscriptionExpireTime is reached
     Then a subscription termination event notification is sent to the callback URL
     And the notification body complies with the OAS schema at "#/components/schemas/EventSubscriptionEnds"
-    And the notification property "$.type" is "org.camaraproject.device-roaming-status-subscriptions.v0.subscription-ends"
+    And the notification property "$.type" is "org.camaraproject.device-roaming-status-subscriptions.v0.subscription-ended"
     And the notification property "$.data.subscriptionId" is equal to "id"
     And the notification property "$.data.terminationReason" is equal to "SUBSCRIPTION_EXPIRED"
 
   @roaming_status_subscriptions_13_subscription_end_when_max_events
-  Scenario: Receive notification for subscription-ends event on max events reached
+  Scenario: Receive notification for subscription-ended event on max events reached
     Given a valid subscription for a device exists with "subscriptionId" equal to "id"
     And the subscription property "$.subscriptionMaxEvents" is set to 1
     And the subscription property "$.sink" is a valid callback URL
     When a single notification corresponding to subscription property "$.type" has been sent to the callback URL
     Then a subscription termination event notification is sent to the callback URL
     And the notification body complies with the OAS schema at "#/components/schemas/EventSubscriptionEnds"
-    And the notification property "$.type" is equal to "org.camaraproject.device-roaming-status-subscriptions.v0.subscription-ends"
+    And the notification property "$.type" is equal to "org.camaraproject.device-roaming-status-subscriptions.v0.subscription-ended"
     And the notification property "$.data.subscriptionId" is equal to "id"
     And the notification request property "$.data.terminationReason" is equal to "MAX_EVENTS_REACHED"
 
   @roaming_status_subscriptions_14_subscription_delete_event_validation
-  Scenario: Receive notification for subscription-ends event on deletion
+  Scenario: Receive notification for subscription-ended event on deletion
     Given a valid subscription for a device exists with "subscriptionId" equal to "id"
     And the subscription property "$.sink" is a valid callback URL
     When the request "deleteDeviceRoamingStatusSubscription" is sent
@@ -254,7 +254,7 @@ Feature: Device Roaming Status Subscriptions API, vwip - Operations createDevice
     And the response status code is 202 or 204
     Then a subscription termination event notification is sent to the callback URL
     And the notification body complies with the OAS schema at "#/components/schemas/EventSubscriptionEnds"
-    And the notification property "$.type" is equal to "org.camaraproject.device-roaming-status-subscriptions.v0.subscription-ends"
+    And the notification property "$.type" is equal to "org.camaraproject.device-roaming-status-subscriptions.v0.subscription-ended"
     And the notification property "$.data.subscriptionId" is equal to "id"
     And the notification request property "$.data.terminationReason" is equal to "SUBSCRIPTION_DELETED"
 
