@@ -35,7 +35,7 @@ info:
 
       - ``org.camaraproject.device-roaming-status-subscriptions.v0.roaming-change-country``: Event triggered when the device in roaming change country code
 
-    Note: Additionally to these list, ``org.camaraproject.device-roaming-status-subscriptions.v0.subscription-ends`` notification `type` is sent when the subscription ends.
+    Note: Additionally to these list, ``org.camaraproject.device-roaming-status-subscriptions.v0.subscription-ended`` notification `type` is sent when the subscription is terminated.
     This notification does not require dedicated subscription.
 
     It is used in following cases:
@@ -198,8 +198,8 @@ paths:
                         $ref: "#/components/examples/ROAMING_ON"
                       roaming-off:
                         $ref: "#/components/examples/ROAMING_OFF"
-                      subscription-ends:
-                        $ref: "#/components/examples/SUBSCRIPTION_ENDS"
+                      subscription-ended:
+                        $ref: "#/components/examples/SUBSCRIPTION_ENDED"
               responses:
                 "204":
                   description: Successful notification
@@ -614,13 +614,13 @@ components:
 
         roaming-change-country - Event triggered when the device in roaming change country code
 
-        subscription-ends - Event triggered when the subscription is terminated
+        subscription-ended - Event triggered when the subscription is terminated
       enum:
         - org.camaraproject.device-roaming-status-subscriptions.v0.roaming-status
         - org.camaraproject.device-roaming-status-subscriptions.v0.roaming-on
         - org.camaraproject.device-roaming-status-subscriptions.v0.roaming-off
         - org.camaraproject.device-roaming-status-subscriptions.v0.roaming-change-country
-        - org.camaraproject.device-roaming-status-subscriptions.v0.subscription-ends
+        - org.camaraproject.device-roaming-status-subscriptions.v0.subscription-ended
 
     SubscriptionEventType:
       type: string
@@ -815,25 +815,6 @@ components:
       items:
         type: string
 
-    NotificationEventType:
-      type: string
-      description: |
-        roaming-status - Event triggered when the device switch from roaming ON to roaming OFF and conversely
-
-        roaming-on - Event triggered when the device switch from roaming OFF to roaming ON
-
-        roaming-off - Event triggered when the device switch from roaming ON to roaming OFF
-
-        roaming-change-country - Event triggered when the device in roaming change country code
-
-        subscription-ends - Event triggered when the subscription is terminated
-      enum:
-        - org.camaraproject.device-roaming-status-subscriptions.v0.roaming-status
-        - org.camaraproject.device-roaming-status-subscriptions.v0.roaming-on
-        - org.camaraproject.device-roaming-status-subscriptions.v0.roaming-off
-        - org.camaraproject.device-roaming-status-subscriptions.v0.roaming-change-country
-        - org.camaraproject.device-roaming-status-subscriptions.v0.subscription-ends
-
     SubscriptionAsync:
       description: Response for a device reachability status operation managed asynchronously (Creation or Deletion)
       type: object
@@ -884,7 +865,7 @@ components:
           org.camaraproject.device-roaming-status-subscriptions.v0.roaming-change-country: "#/components/schemas/EventRoamingChangeCountry"
           org.camaraproject.device-roaming-status-subscriptions.v0.roaming-off: "#/components/schemas/EventRoamingOff"
           org.camaraproject.device-roaming-status-subscriptions.v0.roaming-on: "#/components/schemas/EventRoamingOn"
-          org.camaraproject.device-roaming-status-subscriptions.v0.subscription-ends: "#/components/schemas/EventSubscriptionEnds"
+          org.camaraproject.device-roaming-status-subscriptions.v0.subscription-ended: "#/components/schemas/EventSubscriptionEnded"
 
     Source:
       type: string
@@ -944,14 +925,14 @@ components:
             data:
               $ref: "#/components/schemas/RoamingChangeCountry"
 
-    EventSubscriptionEnds:
-      description: event structure for event subscription ends
+    EventSubscriptionEnded:
+      description: Event structure for sending subscription-ended event
       allOf:
         - $ref: "#/components/schemas/CloudEvent"
         - type: object
           properties:
             data:
-              $ref: "#/components/schemas/SubscriptionEnds"
+              $ref: "#/components/schemas/SubscriptionEnded"
 
     BasicDeviceEventData:
       description: Event detail structure for basic device events
@@ -994,8 +975,8 @@ components:
             countryName:
               $ref: "#/components/schemas/CountryName"
 
-    SubscriptionEnds:
-      description: Event detail structure for org.camaraproject.device-roaming-status-subscriptions.v0.subscription-ends event
+    SubscriptionEnded:
+      description: Event detail structure for org.camaraproject.device-roaming-status-subscriptions.v0.subscription-ended event
       allOf:
         - $ref: "#/components/schemas/BasicDeviceEventData"
         - type: object
@@ -1609,11 +1590,11 @@ components:
           subscriptionId: qs15-h556-rt89-1298
         time: "2023-01-19T13:18:23.682Z"
 
-    SUBSCRIPTION_ENDS:
+    SUBSCRIPTION_ENDED:
       value:
         id: "123658"
         source: https://notificationSendServer12.supertelco.com
-        type: org.camaraproject.device-roaming-status-subscriptions.v0.subscription-ends
+        type: org.camaraproject.device-roaming-status-subscriptions.v0.subscription-ended
         specversion: "1.0"
         datacontenttype: application/json
         data:
