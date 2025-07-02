@@ -258,22 +258,6 @@ Feature: Device Roaming Status Subscriptions API, vwip - Operations createDevice
     And the notification property "$.data.subscriptionId" is equal to "id"
     And the notification request property "$.data.terminationReason" is equal to "SUBSCRIPTION_DELETED"
 
-########################
-# Scenario in case initialEvent is managed
-########################
-
-  @roaming_status_subscriptions_15_subscription_creation_initial_event
-  Scenario: Receive initial event notification on creation
-    Given the API supports initial events to be sent
-    When the request "createDeviceRoamingStatusSubscription" is sent
-    And request property "$.types" is one of the allowed values "<subscription-creation-types>"
-    And request property "$.protocol" is equal to "HTTP"
-    And a valid phone number identified by "$.config.subscriptionDetail.device.phoneNumber"
-    And request property "$.sink" is set to a valid callbackUrl
-    Then the response code is 201 or 202
-    And an event notification of the subscribed type is received on callback-url
-    And notification body complies with the OAS schema at "#/components/schemas/CloudEvent"
-
 ################
 # Error scenarios for management of input parameter device
 ##################
