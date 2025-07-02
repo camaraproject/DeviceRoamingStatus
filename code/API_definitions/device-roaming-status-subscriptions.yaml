@@ -36,9 +36,9 @@ info:
       - ``org.camaraproject.device-roaming-status-subscriptions.v0.roaming-change-country``: Event triggered when the device in roaming change country code
 
     Note: Additionally, the following events could be send, which do not require a dedicated subscription:
-      - `org.camaraproject.geofencing-subscriptions.v0.subscription-started` is sent when the subscription starts.
-      - `org.camaraproject.geofencing-subscriptions.v0.subscription-updated` is sent when the subscription is updated.
-      - `org.camaraproject.geofencing-subscriptions.v0.subscription-ended` is sent when the subscription ends.
+      - `org.camaraproject.device-roaming-status-subscriptions.v0.subscription-started` is sent when the subscription starts.
+      - `org.camaraproject.device-roaming-status-subscriptions.v0.subscription-updated` is sent when the subscription is updated.
+      - `org.camaraproject.device-roaming-status-subscriptions.v0.subscription-ended` is sent when the subscription ends.
 
     It is used in following cases:
       - the subscription expire time (optionally set by the requester) has been reached
@@ -634,9 +634,9 @@ components:
         - org.camaraproject.device-roaming-status-subscriptions.v0.roaming-on
         - org.camaraproject.device-roaming-status-subscriptions.v0.roaming-off
         - org.camaraproject.device-roaming-status-subscriptions.v0.roaming-change-country
-        - org.camaraproject.geofencing-subscriptions.v0.subscription-started
-        - org.camaraproject.geofencing-subscriptions.v0.subscription-updated
-        - org.camaraproject.geofencing-subscriptions.v0.subscription-ended
+        - org.camaraproject.device-roaming-status-subscriptions.v0.subscription-started
+        - org.camaraproject.device-roaming-status-subscriptions.v0.subscription-updated
+        - org.camaraproject.device-roaming-status-subscriptions.v0.subscription-ended
 
     SubscriptionEventType:
       type: string
@@ -881,9 +881,9 @@ components:
           org.camaraproject.device-roaming-status-subscriptions.v0.roaming-change-country: "#/components/schemas/EventRoamingChangeCountry"
           org.camaraproject.device-roaming-status-subscriptions.v0.roaming-off: "#/components/schemas/EventRoamingOff"
           org.camaraproject.device-roaming-status-subscriptions.v0.roaming-on: "#/components/schemas/EventRoamingOn"
-          org.camaraproject.geofencing-subscriptions.v0.subscription-started: "#/components/schemas/EventSubscriptionStarted"
-          org.camaraproject.geofencing-subscriptions.v0.subscription-updated: "#/components/schemas/EventSubscriptionUpdated"
-          org.camaraproject.geofencing-subscriptions.v0.subscription-ended: "#/components/schemas/EventSubscriptionEnded"
+          org.camaraproject.device-roaming-status-subscriptions.v0.subscription-started: "#/components/schemas/EventSubscriptionStarted"
+          org.camaraproject.device-roaming-status-subscriptions.v0.subscription-updated: "#/components/schemas/EventSubscriptionUpdated"
+          org.camaraproject.device-roaming-status-subscriptions.v0.subscription-ended: "#/components/schemas/EventSubscriptionEnded"
 
     Source:
       type: string
