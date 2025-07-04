@@ -13,7 +13,10 @@ info:
     # Relevant terms and definitions
 
     * **Device**: A device refers to any physical entity that can connect to a network and participate in network communication.
-      At least one identifier for the device (user equipment) out of four options: IPv4 address, IPv6 address, Phone number, or Network Access Identifier (not supported for this API version) assigned by the mobile network operator for the device.
+
+        At least one identifier for the device out of four options must be provided: IPv4 address, IPv6 address, Phone number, or Network Access Identifier assigned by the mobile network operator for the device. Where more than one device identifier is provided, only one identifier will be selected by the implementation and this choice indicated to the API consumer in the session creation response.
+
+        Note: Network Access Identifier is defined for future use and will not be supported with this version of the API.
 
     # API Functionality
 
@@ -239,8 +242,10 @@ paths:
               schema:
                 $ref: "#/components/schemas/Subscription"
               examples:
-                subscription-active:
-                  $ref: "#/components/examples/SUBSCRIPTION_ACTIVE"
+                Active Subscription:
+                  $ref: "#/components/examples/ACTIVE_SUBSCRIPTION"
+                Active Subscription With Device Disambiguation:
+                  $ref: "#/components/examples/ACTIVE_SUBSCRIPTION_WITH_DEVICE_DISAMBIGUATION"
         "202":
           description: Request accepted to be processed. It applies for async creation process.
           headers:
@@ -287,6 +292,11 @@ paths:
                 minItems: 0
                 items:
                   $ref: '#/components/schemas/Subscription'
+              examples:
+                List of Subscriptions:
+                  $ref: "#/components/examples/SUBSCRIPTION_LIST"
+                Empty List of Subscriptions:
+                  $ref: "#/components/examples/EMPTY_SUBSCRIPTION_LIST"
         "400":
           $ref: "#/components/responses/Generic400"
         "401":
@@ -318,11 +328,13 @@ paths:
               schema:
                 $ref: "#/components/schemas/Subscription"
               examples:
-                subscription-active:
-                  $ref: "#/components/examples/SUBSCRIPTION_ACTIVE"
-                subscription-activation-requested:
+                Active Subscription:
+                  $ref: "#/components/examples/ACTIVE_SUBSCRIPTION"
+                Active Subscription With Device Disambiguation:
+                  $ref: "#/components/examples/ACTIVE_SUBSCRIPTION_WITH_DEVICE_DISAMBIGUATION"
+                Subscription Activation Requested:
                   $ref: "#/components/examples/SUBSCRIPTION_ACTIVATION_REQUESTED"
-                subscription-deleted:
+                Subscription Deleted:
                   $ref: "#/components/examples/SUBSCRIPTION_DELETED"
         "400":
           $ref: "#/components/responses/SubscriptionIdRequired400"
@@ -755,6 +767,16 @@ components:
           $ref: "#/components/schemas/DeviceIpv6Address"
       minProperties: 1
 
+    DeviceResponse:
+      description: |
+        An identifier for the end-user equipment able to connect to the network that the response refers to. This parameter is only returned when the API consumer includes the `device` parameter in their request (i.e. they are using a two-legged access token), and is relevant when more than one device identifier is specified, as only one of those device identifiers is allowed in the response.
+
+        If the API consumer provides more than one device identifier in their request, the API provider must return a single identifier which is the one they are using to fulfil the request, even if the identifiers do not match the same device. API provider does not perform any logic to validate/correlate that the indicated device identifiers match the same device. No error should be returned if the identifiers are otherwise valid to prevent API consumers correlating different identifiers with a given end user.
+
+      allOf:
+        - $ref: "#/components/schemas/Device"
+        - maxProperties: 1
+
     PhoneNumber:
       description: A public identifier addressing a telephone subscription. In mobile networks it corresponds to the MSISDN (Mobile Station International Subscriber Directory Number). In order to be globally unique it has to be formatted in international format, according to E.164 standard, prefixed with '+'.
       type: string
@@ -945,7 +967,7 @@ components:
         - subscriptionId
       properties:
         device:
-          $ref: "#/components/schemas/Device"
+          $ref: "#/components/schemas/DeviceResponse"
         subscriptionId:
           $ref: "#/components/schemas/SubscriptionId"
 
@@ -1466,19 +1488,12 @@ components:
                       - 422
                   code:
                     enum:
-                      - IDENTIFIER_MISMATCH
                       - SERVICE_NOT_APPLICABLE
                       - MISSING_IDENTIFIER
                       - UNSUPPORTED_IDENTIFIER
                       - UNNECESSARY_IDENTIFIER
                       - MULTIEVENT_SUBSCRIPTION_NOT_SUPPORTED
           examples:
-            GENERIC_422_IDENTIFIER_MISMATCH:
-              description: Inconsistency between identifiers not pointing to the same device
-              value:
-                status: 422
-                code: IDENTIFIER_MISMATCH
-                message: Provided identifiers are not consistent.
             GENERIC_422_SERVICE_NOT_APPLICABLE:
               description: Service not applicable for the provided identifier
               value:
@@ -1613,7 +1628,23 @@ components:
           subscriptionId: qs15-h556-rt89-1298
         time: "2023-01-19T13:18:23.682Z"
 
-    SUBSCRIPTION_ACTIVE:
+    ACTIVE_SUBSCRIPTION:
+      value:
+        id: 550e8400-e29b-41d4-a716-446655440000
+        sink: https://endpoint.example.com/sink
+        protocol: HTTP
+        types:
+          - "org.camaraproject.device-roaming-status-subscriptions.v0.roaming-on"
+        config:
+          subscriptionDetail: {}
+          subscriptionExpireTime: "2024-07-17T13:18:23.682Z"
+          subscriptionMaxEvents: 5
+          initialEvent: true
+        startsAt: "2024-07-03T21:12:02.871Z"
+        expiresAt: "2024-07-03T21:12:02.871Z"
+        status: ACTIVE
+
+    ACTIVE_SUBSCRIPTION_WITH_DEVICE_DISAMBIGUATION:
       value:
         id: 550e8400-e29b-41d4-a716-446655440000
         sink: https://endpoint.example.com/sink
@@ -1639,9 +1670,7 @@ components:
         types:
           - "org.camaraproject.device-roaming-status-subscriptions.v0.roaming-on"
         config:
-          subscriptionDetail:
-            device:
-              phoneNumber: "+123456789"
+          subscriptionDetail: {}
           subscriptionExpireTime: "2024-07-17T13:18:23.682Z"
           subscriptionMaxEvents: 5
           initialEvent: true
@@ -1657,9 +1686,7 @@ components:
         types:
           - "org.camaraproject.device-roaming-status-subscriptions.v0.roaming-on"
         config:
-          subscriptionDetail:
-            device:
-              phoneNumber: "+123456789"
+          subscriptionDetail: {}
           subscriptionExpireTime: "2024-07-17T13:18:23.682Z"
           subscriptionMaxEvents: 5
           initialEvent: true
@@ -1690,3 +1717,24 @@ components:
           "subscriptionMaxEvents": 5,
           "initialEvent": true
         }
+
+    SUBSCRIPTION_LIST:
+      description: A list of API consumer subscriptions. If a 3-legged access token is used, the list is specific to the device associated with that token.
+      value:
+        - id: 550e8400-e29b-41d4-a716-446655440000
+          sink: https://endpoint.example.com/sink
+          protocol: HTTP
+          types:
+            - "org.camaraproject.device-roaming-status-subscriptions.v0.roaming-on"
+          config:
+            subscriptionDetail: {}
+            subscriptionExpireTime: "2024-07-17T13:18:23.682Z"
+            subscriptionMaxEvents: 5
+            initialEvent: true
+          startsAt: "2024-07-03T21:12:02.871Z"
+          expiresAt: "2024-07-03T21:12:02.871Z"
+          status: ACTIVE
+
+    EMPTY_SUBSCRIPTION_LIST:
+      description: The API consumer either has no subscriptions or, if a 3-legged access token is used, has none for the device associated with that token.
+      value: []
