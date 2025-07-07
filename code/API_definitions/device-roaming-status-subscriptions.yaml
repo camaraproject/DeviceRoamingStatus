@@ -35,7 +35,7 @@ info:
 
       - ``org.camaraproject.device-roaming-status-subscriptions.v0.roaming-change-country``: Event triggered when the device in roaming change country code
 
-    Note: Additionally, the following events could be send, which do not require a dedicated subscription:
+    Note: Additionally, the following events could be sent, which do not require a dedicated subscription:
       - `org.camaraproject.device-roaming-status-subscriptions.v0.subscription-started` is sent when the subscription starts.
       - `org.camaraproject.device-roaming-status-subscriptions.v0.subscription-updated` is sent when the subscription is updated.
       - `org.camaraproject.device-roaming-status-subscriptions.v0.subscription-ended` is sent when the subscription ends.
