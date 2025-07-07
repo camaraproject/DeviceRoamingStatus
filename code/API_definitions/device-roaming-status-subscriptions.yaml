@@ -1014,8 +1014,8 @@ components:
     UpdateReason:
       type: string
       description: |
-        - SUBSCRIPTION_ACTIVE - API server transitioned susbcription status to `ACTIVE`
-        - SUBSCRIPTION_INACTIVE - API server transitioned susbcription status to `INACTIVE`
+        - SUBSCRIPTION_ACTIVE - API server transitioned subscription status to `ACTIVE`
+        - SUBSCRIPTION_INACTIVE - API server transitioned subscription status to `INACTIVE`
       enum:
         - SUBSCRIPTION_ACTIVE
         - SUBSCRIPTION_INACTIVE
