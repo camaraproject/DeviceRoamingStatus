@@ -36,6 +36,7 @@ The API definition(s) are based on
 * Make lastStatusTime mandatory in 200 responses of the API by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/19
 * Update error response documentation in OAS definitions by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/30
 * Update x-correlator schema by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/29
+* Commonalities alignement for device roaming status by @bigludo7 in https://github.com/camaraproject/DeviceRoamingStatus/pull/37
 
 ### Fixed
 
@@ -51,12 +52,14 @@ The API definition(s) are based on
   - OpenAPI [YAML spec file](https://github.com/camaraproject/DeviceRoamingStatus/blob/r1.1/code/API_definitions/device-roaming-status-subscriptions.yaml)
 
 ### Added
+* Add subscription started & updated event by @bigludo7 in https://github.com/camaraproject/DeviceRoamingStatus/pull/35
 
 ### Changed
 * change sink format to format: uri by @maxl2287 in https://github.com/camaraproject/DeviceRoamingStatus/pull/18
 * Rename subscription-ends event to subscription-ended by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/31
 * Update error response documentation in OAS definitions by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/30
 * Update x-correlator schema by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/29
+* Commonalities alignement for device roaming subscription by @bigludo7 in https://github.com/camaraproject/DeviceRoamingStatus/pull/37
 
 ### Fixed
 * remove "Generic High Entropy Secret" by @maxl2287 in https://github.com/camaraproject/DeviceRoamingStatus/pull/17
