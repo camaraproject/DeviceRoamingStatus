@@ -15,13 +15,13 @@ Note: this API had former releases in the [DeviceStatus](https://github.com/cama
 # r1.1
 ## Release Notes
 
-This public release contains the definition and documentation of
+This pre-release contains the definition and documentation of
 * device-roaming-status v1.1.0-rc.2
 * device-roaming-status-subscriptions v0.8.0-rc.1
 
 The API definition(s) are based on
-* Commonalities v0.6.0
-* Identity and Consent Management v0.4.0
+* Commonalities v0.6.0-rc.1 (r3.2)
+* Identity and Consent Management v0.4.0-rc.1 (r3.2)
 
 ## device-roaming-status v1.1.0-rc.2
 
@@ -31,6 +31,10 @@ The API definition(s) are based on
   - OpenAPI [YAML spec file](https://github.com/camaraproject/DeviceRoamingStatus/blob/r1.1/code/API_definitions/device-roaming-status.yaml)
 
 ### Added
+
+**device-roaming-status v1.1.0-rc.2 is the first release candidate of the version 1.1.0**
+
+device-roaming-status v1.1.0 will be a minor update of the API, and is backward compatible with v1.0.0.
 
 ### Changed
 * Make lastStatusTime mandatory in 200 responses of the API by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/19
