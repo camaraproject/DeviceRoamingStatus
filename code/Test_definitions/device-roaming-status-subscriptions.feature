@@ -1,5 +1,5 @@
 @Device_Status_Roaming_Subscription
-Feature: Device Roaming Status Subscriptions API, vwip - Operations createDeviceRoamingStatusSubscription, retrieveDeviceRoamingStatusSubscriptionList, retrieveDeviceRoamingStatusSubscription and deleteDeviceRoamingStatusSubscription
+Feature: Device Roaming Status Subscriptions API, v0.8.0-rc.1 - Operations createDeviceRoamingStatusSubscription, retrieveDeviceRoamingStatusSubscriptionList, retrieveDeviceRoamingStatusSubscription and deleteDeviceRoamingStatusSubscription
 
   # Input to be provided by the implementation to the tester
   #
@@ -14,9 +14,9 @@ Feature: Device Roaming Status Subscriptions API, vwip - Operations createDevice
   # References to OAS spec schemas refer to schemas specified in device-roaming-status-subscriptions.yaml
 
   Background: Common Device Roaming Status Subscriptions setup
-    Given the resource "{apiroot}/device-roaming-status-subscriptions/vwip" as base-url
+    Given the resource "{apiroot}/device-roaming-status-subscriptions/v0.8rc1" as base-url
     And the header "Authorization" is set to a valid access token
-    And the header "x-correlator" is set to a UUID value
+    And the header "x-correlator" complies with the schema at "#/components/schemas/XCorrelator"
 
 ##########################
 # Happy path scenarios
@@ -517,7 +517,7 @@ Feature: Device Roaming Status Subscriptions API, vwip - Operations createDevice
   @roaming_status_subscriptions_retrieve_list_401.10_no_authorization_header
   Scenario: No Authorization header
     Given the request header "Authorization" is removed
-    When the request "deleteDeviceRoamingStatusSubscriptionList" is sent
+    When the request "retrieveDeviceRoamingStatusSubscriptionList" is sent
     Then the response status code is 401
     And the response header "Content-Type" is "application/json"
     And the response property "$.status" is 401
@@ -527,7 +527,7 @@ Feature: Device Roaming Status Subscriptions API, vwip - Operations createDevice
   @roaming_status_subscriptions_retrieve_list_401.11_expired_access_token
   Scenario: Expired access token
     Given the header "Authorization" is set to a previously valid but now expired access token
-    When the request "deleteDeviceRoamingStatusSubscriptionList" is sent
+    When the request "retrieveDeviceRoamingStatusSubscriptionList" is sent
     Then the response status code is 401
     And the response header "Content-Type" is "application/json"
     And the response property "$.status" is 401
@@ -537,7 +537,7 @@ Feature: Device Roaming Status Subscriptions API, vwip - Operations createDevice
   @roaming_status_subscriptions_retrieve_list_401.12_malformed_access_token
   Scenario: Malformed access token
     Given the header "Authorization" is set to a malformed token
-    When the request "deleteDeviceRoamingStatusSubscriptionList" is sent
+    When the request "retrieveDeviceRoamingStatusSubscriptionList" is sent
     Then the response status code is 401
     And the response header "Content-Type" is "application/json"
     And the response property "$.status" is 401
