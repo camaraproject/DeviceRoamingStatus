@@ -1,4 +1,4 @@
-@Device_Status_Roaming_Subscription
+# device-status-roaming-subscriptions
 Feature: Device Roaming Status Subscriptions API, vwip - Operations createDeviceRoamingStatusSubscription, retrieveDeviceRoamingStatusSubscriptionList, retrieveDeviceRoamingStatusSubscription and deleteDeviceRoamingStatusSubscription
 
   # Input to be provided by the implementation to the tester
@@ -102,7 +102,7 @@ Feature: Device Roaming Status Subscriptions API, vwip - Operations createDevice
   @roaming_status_subscriptions_03.1_retrieve_by_id_2legs
   Scenario: Check existing subscription is retrieved by id with a 2-legged access token
     Given a subscription exists and has a subscriptionId equal to "id"
-    And the header "Authorization" is set to a valid access token which does not identify any device 
+    And the header "Authorization" is set to a valid access token which does not identify any device
     When the request "retrieveDeviceRoamingStatusSubscription" is sent
     And the path parameter "subscriptionId" is set to "id"
     Then the response status code is 200
@@ -128,7 +128,7 @@ Feature: Device Roaming Status Subscriptions API, vwip - Operations createDevice
   @roaming_status_subscriptions_04_retrieve_list_2legs
   Scenario: Check existing subscription(s) is/are retrieved in list
     Given at least one subscription is existing for the API consumer making this request
-    And the header "Authorization" is set to a valid access token which does not identify any device 
+    And the header "Authorization" is set to a valid access token which does not identify any device
     When the request "retrieveDeviceRoamingStatusSubscriptionList" is sent
     Then the response status code is 200
     And the response header "Content-Type" is "application/json"
@@ -159,7 +159,7 @@ Feature: Device Roaming Status Subscriptions API, vwip - Operations createDevice
     And the response body is an empty array
 
   @roaming_status_subscriptions_07_delete_subscription_based_on_an_existing_subscription-id
-   Scenario: Delete the subscription with subscriptionId equal to "id"
+  Scenario: Delete the subscription with subscriptionId equal to "id"
     Given the API consumer has an active subscription with "subscriptionId" equal to "id"
     When the request "deleteDeviceRoamingStatusSubscription" is sent
     And the path parameter "subscriptionId" is set to "id"
@@ -425,10 +425,10 @@ Feature: Device Roaming Status Subscriptions API, vwip - Operations createDevice
   Scenario: No Authorization header
     Given the header "Authorization" is removed
     And the request body is compliant with the schema "#/components/schemas/SubscriptionRequest"
+    When the request "createDeviceRoamingStatusSubscription" is sent
     Then the response status code is 401
     And the response header "Content-Type" is "application/json"
-    When the request "createDeviceRoamingStatusSubscription" is sent
-    Then the response property "$.status" is 401
+    And the response property "$.status" is 401
     And the response property "$.code" is "UNAUTHENTICATED"
     And the response property "$.message" contains a user friendly text
 
@@ -550,7 +550,7 @@ Feature: Device Roaming Status Subscriptions API, vwip - Operations createDevice
 
   @roaming_status_subscriptions_create_403.1_permission_denied
   Scenario: subscription creation without having the required scope
-    Given the header "Authorization" set to an access token not including scope "device-roaming-status-subscriptions:org.camaraproject.device-roaming-status-subscriptions.v0.roaming-on:create"
+    Given the access token does not include scope "device-roaming-status-subscriptions:org.camaraproject.device-roaming-status-subscriptions.v0.roaming-on:create"
     And the request body is compliant with the schema "#/components/schemas/SubscriptionRequest"
     And the request body property "$.types" is equal to "org.camaraproject.device-roaming-status-subscriptions.v0.roaming-on"
     When the request "createDeviceRoamingStatusSubscription" is sent
@@ -561,7 +561,7 @@ Feature: Device Roaming Status Subscriptions API, vwip - Operations createDevice
 
   @roaming_status_subscriptions_create_403.2_permission_denied
   Scenario: subscription creation without having the required scope
-    Given the header "Authorization" set to an access token not including scope "device-roaming-status-subscriptions:org.camaraproject.device-roaming-status-subscriptions.v0.roaming-off:create"
+    Given the access token does not include scope "device-roaming-status-subscriptions:org.camaraproject.device-roaming-status-subscriptions.v0.roaming-off:create"
     And the request body is compliant with the schema "#/components/schemas/SubscriptionRequest"
     And the request body property "$.types" is equal to "org.camaraproject.device-roaming-status-subscriptions.v0.roaming-off"
     When the request "createDeviceRoamingStatusSubscription" is sent
@@ -572,7 +572,7 @@ Feature: Device Roaming Status Subscriptions API, vwip - Operations createDevice
 
   @roaming_status_subscriptions_create_403.1_permission_denied
   Scenario: subscription creation without having the required scope
-    Given the header "Authorization" set to an access token not including scope "device-roaming-status-subscriptions:org.camaraproject.device-roaming-status-subscriptions.v0.roaming-status:create"
+    Given the access token does not include scope "device-roaming-status-subscriptions:org.camaraproject.device-roaming-status-subscriptions.v0.roaming-status:create"
     And the request body is compliant with the schema "#/components/schemas/SubscriptionRequest"
     And the request body property "$.types" is equal to "org.camaraproject.device-roaming-status-subscriptions.v0.roaming-status"
     When the request "createDeviceRoamingStatusSubscription" is sent
@@ -583,7 +583,7 @@ Feature: Device Roaming Status Subscriptions API, vwip - Operations createDevice
 
   @roaming_status_subscriptions_create_403.1_permission_denied
   Scenario: subscription creation without having the required scope
-    Given the header "Authorization" set to an access token not including scope "device-roaming-status-subscriptions:org.camaraproject.device-roaming-status-subscriptions.v0.roaming-change-country:create"
+    Given the access token does not include scope "device-roaming-status-subscriptions:org.camaraproject.device-roaming-status-subscriptions.v0.roaming-change-country:create"
     And the request body is compliant with the schema "#/components/schemas/SubscriptionRequest"
     And the request body property "$.types" is equal to "org.camaraproject.device-roaming-status-subscriptions.v0.roaming-change-country"
     When the request "createDeviceRoamingStatusSubscription" is sent
@@ -594,7 +594,7 @@ Feature: Device Roaming Status Subscriptions API, vwip - Operations createDevice
 
   @roaming_status_subscriptions_create_403.5_subscription_mismatch_for_requested_events_subscription
   Scenario: Subscription creation with invalid access token for requested events subscription
-    Given the header "Authorization" set to an access token that includes only a single subscription scope
+    Given the access token includes only a single subscription scope
     And the request body is compliant with the schema "#/components/schemas/SubscriptionRequest"
     And the request body property "$.types" is equal to a valid type other than the event corresponding to the access token scope
     When the request "createDeviceRoamingStatusSubscription" is sent
