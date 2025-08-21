@@ -52,7 +52,6 @@ Feature: Device Roaming Status Subscriptions API, vwip - Operation createDeviceR
   Scenario Outline: Synchronous subscription creation with 3-legged-access-token
     # Some implementations may only support asynchronous subscription creation
     Given the header "Authorization" is set to a valid access token which identifies a valid device
-    And the request body is compliant with the OAS schema at "#/component/schemas/SubscriptionRequest"
     When the request "createDeviceRoamingStatusSubscription" is sent
     And request property "$.types" is one of the allowed values "<subscription-creation-types>"
     And request property "$.protocol" is equal to "HTTP"
