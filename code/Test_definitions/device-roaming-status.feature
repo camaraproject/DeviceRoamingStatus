@@ -1,4 +1,4 @@
-@Device_Roaming_Status
+# device-roaming-status
 Feature: CAMARA Device Roaming Status API, vwip - Operation getRoamingStatus
   # Input to be provided by the implementation to the tester
   #
@@ -176,7 +176,7 @@ Feature: CAMARA Device Roaming Status API, vwip - Operation getRoamingStatus
 #################
 
   @device_roaming_status_403_permission_denied
-   Scenario: OAuth2 token access does not have the required scope
+  Scenario: OAuth2 token access does not have the required scope
     Given header "Authorization" set to an access token not including scope "device-roaming-status:read"
     And the request body is set to a valid request body
     When the request "getRoamingStatus" is sent
@@ -190,7 +190,7 @@ Feature: CAMARA Device Roaming Status API, vwip - Operation getRoamingStatus
 #################
 
   @device_roaming_status_503_network_error
-   Scenario: Network error temporarily prevents the device roaming status from being retrieved
+  Scenario: Network error temporarily prevents the device roaming status from being retrieved
     # This test is for use by the API provider only
     Given a valid testing device supported by the service, identified by the token or provided in the request body
     And the request body is set to a valid request body

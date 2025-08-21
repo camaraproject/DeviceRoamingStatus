@@ -1,5 +1,5 @@
-@Device_Status_Roaming_Subscription
-Feature: Device Roaming Status Subscriptions API, vwip - Operations createDeviceRoamingStatusSubscription, retrieveDeviceRoamingStatusSubscriptionList, retrieveDeviceRoamingStatusSubscription and deleteDeviceRoamingStatusSubscription
+# device-status-roaming-subscriptions-createDeviceRoamingStatusSubscription
+Feature: Device Roaming Status Subscriptions API, vwip - Operation createDeviceRoamingStatusSubscription
 
   # Input to be provided by the implementation to the tester
   #
@@ -17,6 +17,7 @@ Feature: Device Roaming Status Subscriptions API, vwip - Operations createDevice
     Given the resource "{apiroot}/device-roaming-status-subscriptions/vwip" as base-url
     And the header "Authorization" is set to a valid access token
     And the header "x-correlator" complies with the schema at "#/components/schemas/XCorrelator"
+    And the request body is compliant with the OAS schema at "#/component/schemas/SubscriptionRequest"
 
 ##########################
 # Happy path scenarios
@@ -26,7 +27,6 @@ Feature: Device Roaming Status Subscriptions API, vwip - Operations createDevice
   Scenario Outline: Synchronous subscription creation with 2-legged-access-token
     # Some implementations may only support asynchronous subscription creation
     Given the header "Authorization" is set to a valid access token which does not identify any device
-    And the request body is compliant with the OAS schema at "#/component/schemas/SubscriptionRequest"
     When the request "createDeviceRoamingStatusSubscription" is sent
     And request property "$.types" is one of the allowed values "<subscription-creation-types>"
     And request property "$.protocol" is equal to "HTTP"
@@ -38,8 +38,7 @@ Feature: Device Roaming Status Subscriptions API, vwip - Operations createDevice
     And the response body complies with the OAS schema at "#/components/schemas/Subscription"
     And the response properties "$.types", "$.protocol", "$.sink" and "$.config.subscriptionDetail.device.phoneNumber" are present with the values provided in the request
     And the response property "$.id" is present
-    And the response property "$.startsAt", if present, has a valid value with date-time format
-    And the response property "$.expiresAt", if present, has a valid value with date-time format
+    And the response properties "$.startsAt" and "$.expiresAt", if present, have a valid value with date-time format
     And the response property "$.status", if present, has the value "ACTIVATION_REQUESTED", "ACTIVE" or "INACTIVE"
 
     Examples:
@@ -53,7 +52,6 @@ Feature: Device Roaming Status Subscriptions API, vwip - Operations createDevice
   Scenario Outline: Synchronous subscription creation with 3-legged-access-token
     # Some implementations may only support asynchronous subscription creation
     Given the header "Authorization" is set to a valid access token which identifies a valid device
-    And the request body is compliant with the OAS schema at "#/component/schemas/SubscriptionRequest"
     When the request "createDeviceRoamingStatusSubscription" is sent
     And request property "$.types" is one of the allowed values "<subscription-creation-types>"
     And request property "$.protocol" is equal to "HTTP"
@@ -65,8 +63,7 @@ Feature: Device Roaming Status Subscriptions API, vwip - Operations createDevice
     And the response body complies with the OAS schema at "#/components/schemas/Subscription"
     And the response properties "$.types", "$.protocol" and "$.sink" are present with the values provided in the request
     And the response property "$.id" is present
-    And the response property "$.startsAt", if present, has a valid value with date-time format
-    And the response property "$.expiresAt", if present, has a valid value with date-time format
+    And the response properties "$.startsAt" and "$.expiresAt", if present, have a valid value with date-time format
     And the response property "$.status", if present, has the value "ACTIVATION_REQUESTED", "ACTIVE" or "INACTIVE"
     And the response property "$.config.subscriptionDetail.device" is not present
 
@@ -99,76 +96,7 @@ Feature: Device Roaming Status Subscriptions API, vwip - Operations createDevice
       | org.camaraproject.device-roaming-status-subscriptions.v0.roaming-off                    |
       | org.camaraproject.device-roaming-status-subscriptions.v0.roaming-change-country         |
 
-  @roaming_status_subscriptions_03.1_retrieve_by_id_2legs
-  Scenario: Check existing subscription is retrieved by id with a 2-legged access token
-    Given a subscription exists and has a subscriptionId equal to "id"
-    And the header "Authorization" is set to a valid access token which does not identify any device 
-    When the request "retrieveDeviceRoamingStatusSubscription" is sent
-    And the path parameter "subscriptionId" is set to "id"
-    Then the response status code is 200
-    And the response header "Content-Type" is "application/json"
-    And the response header "x-correlator" has same value as the request header "x-correlator"
-    And the response body complies with the OAS schema at "#/components/schemas/Subscription"
-    And the response property "$.id" is equal to "id"
-    And the response property "$.config.subscriptionDetail.device" is present
-
-  @roaming_status_subscriptions_03.2_retrieve_by_id_3legs
-  Scenario: Check existing subscription is retrieved by id with a 3-legged access token
-    Given a subscription exists and has a subscriptionId equal to "id"
-    And the header "Authorization" is set to a valid access token which identifies the device associated with the subscription
-    When the request "retrieveDeviceRoamingStatusSubscription" is sent
-    And the path parameter "subscriptionId" is set to "id"
-    Then the response status code is 200
-    And the response header "Content-Type" is "application/json"
-    And the response header "x-correlator" has same value as the request header "x-correlator"
-    And the response body complies with the OAS schema at "#/components/schemas/Subscription"
-    And the response property "$.id" is equal to "id"
-    And the response property "$.config.subscriptionDetail.device" is not present
-
-  @roaming_status_subscriptions_04_retrieve_list_2legs
-  Scenario: Check existing subscription(s) is/are retrieved in list
-    Given at least one subscription is existing for the API consumer making this request
-    And the header "Authorization" is set to a valid access token which does not identify any device 
-    When the request "retrieveDeviceRoamingStatusSubscriptionList" is sent
-    Then the response status code is 200
-    And the response header "Content-Type" is "application/json"
-    And the response header "x-correlator" has same value as the request header "x-correlator"
-    And the response body complies with an array of OAS schema defined at "#/components/schemas/Subscription"
-    And the response body lists all subscriptions belonging to the API consumer
-
-  @roaming_status_subscriptions_05_retrieve_list_3legs
-  Scenario: Check existing subscription(s) is/are retrieved in list
-    Given the API consumer has at least one active subscription for the device
-    And the header "Authorization" is set to a valid access token which identifies a valid device associated with one or more subscriptions
-    When the request "retrieveDeviceRoamingStatusSubscriptionList" is sent
-    Then the response status code is 200
-    And the response header "Content-Type" is "application/json"
-    And the response header "x-correlator" has same value as the request header "x-correlator"
-    And the response body complies with an array of OAS schema defined at "#/components/schemas/Subscription"
-    And the response body lists all subscriptions belonging to the API consumer for the identified device
-    And the response property "$.config.subscriptionDetail.device" is not present in any of the subscription records
-
-  @roaming_status_subscriptions_06_retrieve_empty_list_3legs
-  Scenario: Check no existing subscription is retrieved in list
-    Given the API consumer has no active subscriptions for the device
-    And the header "Authorization" is set to a valid access token which identifies a valid device
-    When the request "retrieveDeviceRoamingStatusSubscriptionList" is sent
-    Then the response status code is 200
-    And the response header "Content-Type" is "application/json"
-    And the response header "x-correlator" has same value as the request header "x-correlator"
-    And the response body is an empty array
-
-  @roaming_status_subscriptions_07_delete_subscription_based_on_an_existing_subscription-id
-   Scenario: Delete the subscription with subscriptionId equal to "id"
-    Given the API consumer has an active subscription with "subscriptionId" equal to "id"
-    When the request "deleteDeviceRoamingStatusSubscription" is sent
-    And the path parameter "subscriptionId" is set to "id"
-    Then the response status code is 202 or 204
-    And the response header "x-correlator" has same value as the request header "x-correlator"
-    And if the response property "$.status" is 204 then response body is not present
-    And if the response property "$.status" is 202 then response body complies with the OAS schema at "#/components/schemas/SubscriptionAsync" and the response property "$.id" is equal to "id"
-
-  @roaming_status_subscriptions_08_receive_notification_when_roaming_status_changed_to_on
+  @roaming_status_subscriptions_03_receive_notification_when_roaming_status_changed_to_on
   Scenario: Receive notification for roaming-on event
     Given a valid subscription for that device exists with "subscriptionId" equal to "id"
     And the subscription property "$.types" contains the element "org.camaraproject.device-roaming-status-subscriptions.v0.roaming-on"
@@ -181,7 +109,7 @@ Feature: Device Roaming Status Subscriptions API, vwip - Operations createDevice
     And the notification property "$.type" is equal to "org.camaraproject.device-roaming-status-subscriptions.v0.roaming-on"
     And the notification property "$.data.subscriptionId" is equal to "id"
 
-  @roaming_status_subscriptions_09_receive_notification_when_roaming_status_changed_to_off
+  @roaming_status_subscriptions_04_receive_notification_when_roaming_status_changed_to_off
   Scenario: Receive notification for roaming-off event
     Given a valid subscription for that device exists with "subscriptionId" equal to "id"
     And the subscription property "$.types" contains the element "org.camaraproject.device-roaming-status-subscriptions.v0.roaming-off"
@@ -194,7 +122,7 @@ Feature: Device Roaming Status Subscriptions API, vwip - Operations createDevice
     And the notification property "$.type" is equal to "org.camaraproject.device-roaming-status-subscriptions.v0.roaming-off"
     And the notification property "$.data.subscriptionId" is equal to "id"
 
-  @roaming_status_subscriptions_10_receive_notification_when_roaming_status_changed
+  @roaming_status_subscriptions_05_receive_notification_when_roaming_status_changed
   Scenario: Receive notification for roaming-status changes
     Given a valid subscription for that device exists with "subscriptionId" equal to "id"
     And the subscription property "$.types" contains the element "org.camaraproject.device-roaming-status-subscriptions.v0.roaming-status"
@@ -206,7 +134,7 @@ Feature: Device Roaming Status Subscriptions API, vwip - Operations createDevice
     And the notification property "$.type" is equal to "org.camaraproject.device-roaming-status-subscriptions.v0.roaming-status"
     And the notification property "$.data.subscriptionId" is equal to "id"
 
-  @roaming_status_subscriptions_11_receive_notification_when_roaming_change_country
+  @roaming_status_subscriptions_06_receive_notification_when_roaming_change_country
   Scenario: Receive notification for roaming-change-country
     Given a valid subscription for that device exists with "subscriptionId" equal to "id"
     And the subscription property "$.types" contains the element "org.camaraproject.device-roaming-status-subscriptions.v0.roaming-change-country"
@@ -221,7 +149,7 @@ Feature: Device Roaming Status Subscriptions API, vwip - Operations createDevice
     And the notification property "$.data.countryCode" is present and equal to a valid country code
     And the notification property "$.data.countryName" is present and includes a list of all countries corresponding to the country code
 
-  @roaming_status_subscriptions_12_subscription_expiry
+  @roaming_status_subscriptions_07_subscription_expiry
   Scenario: Receive notification for subscription-ended event on expiry
     Given a valid subscription for a device exists with "subscriptionId" equal to "id"
     And the subscription property "$.subscriptionExpireTime" is set to a value in the near future
@@ -233,7 +161,7 @@ Feature: Device Roaming Status Subscriptions API, vwip - Operations createDevice
     And the notification property "$.data.subscriptionId" is equal to "id"
     And the notification property "$.data.terminationReason" is equal to "SUBSCRIPTION_EXPIRED"
 
-  @roaming_status_subscriptions_13_subscription_end_when_max_events
+  @roaming_status_subscriptions_08_subscription_end_when_max_events
   Scenario: Receive notification for subscription-ended event on max events reached
     Given a valid subscription for a device exists with "subscriptionId" equal to "id"
     And the subscription property "$.subscriptionMaxEvents" is set to 1
@@ -244,19 +172,6 @@ Feature: Device Roaming Status Subscriptions API, vwip - Operations createDevice
     And the notification property "$.type" is equal to "org.camaraproject.device-roaming-status-subscriptions.v0.subscription-ended"
     And the notification property "$.data.subscriptionId" is equal to "id"
     And the notification request property "$.data.terminationReason" is equal to "MAX_EVENTS_REACHED"
-
-  @roaming_status_subscriptions_14_subscription_delete_event_validation
-  Scenario: Receive notification for subscription-ended event on deletion
-    Given a valid subscription for a device exists with "subscriptionId" equal to "id"
-    And the subscription property "$.sink" is a valid callback URL
-    When the request "deleteDeviceRoamingStatusSubscription" is sent
-    And the path parameter "subscriptionId" is set to "id"
-    And the response status code is 202 or 204
-    Then a subscription termination event notification is sent to the callback URL
-    And the notification body complies with the OAS schema at "#/components/schemas/EventSubscriptionEnds"
-    And the notification property "$.type" is equal to "org.camaraproject.device-roaming-status-subscriptions.v0.subscription-ended"
-    And the notification property "$.data.subscriptionId" is equal to "id"
-    And the notification request property "$.data.terminationReason" is equal to "SUBSCRIPTION_DELETED"
 
 ################
 # Error scenarios for management of input parameter device
@@ -376,7 +291,7 @@ Feature: Device Roaming Status Subscriptions API, vwip - Operations createDevice
     And the response property "$.message" contains a user friendly text
 
   @roaming_status_subscriptions_400.4_invalid_protocol
-  Scenario: subscription creation with invalid protocol
+  Scenario: Subscription creation with invalid protocol
     Given the request body is compliant with the schema "#/components/schemas/SubscriptionRequest"
     And the request property "$.protocol" is not equal to "HTTP"
     When the request "createDeviceRoamingStatusSubscription" is sent
@@ -386,7 +301,7 @@ Feature: Device Roaming Status Subscriptions API, vwip - Operations createDevice
     And the response property "$.message" contains a user friendly text
 
   @roaming_status_subscriptions_400.5_create_subscription_with_invalid_credential_type
-  Scenario: subscription creation with invalid credential type
+  Scenario: Subscription creation with invalid credential type
     Given the request body is compliant with the schema "#/components/schemas/SubscriptionRequest"
     And the request property "$.sinkCredential.accessTokenType" is equal to "bearer"
     And the request property "$.sinkCredential.credentialType" is not equal to "ACCESSTOKEN"
@@ -425,10 +340,10 @@ Feature: Device Roaming Status Subscriptions API, vwip - Operations createDevice
   Scenario: No Authorization header
     Given the header "Authorization" is removed
     And the request body is compliant with the schema "#/components/schemas/SubscriptionRequest"
+    When the request "createDeviceRoamingStatusSubscription" is sent
     Then the response status code is 401
     And the response header "Content-Type" is "application/json"
-    When the request "createDeviceRoamingStatusSubscription" is sent
-    Then the response property "$.status" is 401
+    And the response property "$.status" is 401
     And the response property "$.code" is "UNAUTHENTICATED"
     And the response property "$.message" contains a user friendly text
 
@@ -454,103 +369,13 @@ Feature: Device Roaming Status Subscriptions API, vwip - Operations createDevice
     And the response property "$.code" is "UNAUTHENTICATED"
     And the response property "$.message" contains a user friendly text
 
-  @roaming_status_subscriptions_retrieve_401.4_no_authorization_header
-  Scenario: No Authorization header
-    Given the request header "Authorization" is removed
-    When the request "retrieveDeviceRoamingStatusSubscription" is sent
-    Then the response status code is 401
-    And the response header "Content-Type" is "application/json"
-    And the response property "$.status" is 401
-    And the response property "$.code" is "UNAUTHENTICATED"
-    And the response property "$.message" contains a user friendly text
-
-  @roaming_status_subscriptions_retrieve_401.5_expired_access_token
-  Scenario: Expired access token
-    Given the header "Authorization" is set to a previously valid but now expired access token
-    When the request "retrieveDeviceRoamingStatusSubscription" is sent
-    Then the response status code is 401
-    And the response header "Content-Type" is "application/json"
-    And the response property "$.status" is 401
-    And the response property "$.code" is "UNAUTHENTICATED"
-    And the response property "$.message" contains a user friendly text
-
-  @roaming_status_subscriptions_retrieve_401.6_malformed_access_token
-  Scenario: Malformed access token
-    Given the header "Authorization" is set to a malformed token
-    When the request "retrieveDeviceRoamingStatusSubscription" is sent
-    Then the response status code is 401
-    And the response header "Content-Type" is "application/json"
-    And the response property "$.status" is 401
-    And the response property "$.code" is "UNAUTHENTICATED"
-    And the response property "$.message" contains a user friendly text
-
-  @roaming_status_subscriptions_delete_401.7_no_authorization_header
-  Scenario: No Authorization header
-    Given the request header "Authorization" is removed
-    When the request "deleteDeviceRoamingStatusSubscription" is sent
-    Then the response status code is 401
-    And the response header "Content-Type" is "application/json"
-    And the response property "$.status" is 401
-    And the response property "$.code" is "UNAUTHENTICATED"
-    And the response property "$.message" contains a user friendly text
-
-  @roaming_status_subscriptions_delete_401.8_expired_access_token
-  Scenario: Expired access token
-    Given the header "Authorization" is set to a previously valid but now expired access token
-    When the request "deleteDeviceRoamingStatusSubscription" is sent
-    Then the response status code is 401
-    And the response header "Content-Type" is "application/json"
-    And the response property "$.status" is 401
-    And the response property "$.code" is "UNAUTHENTICATED"
-    And the response property "$.message" contains a user friendly text
-
-  @roaming_status_subscriptions_delete_401.9_malformed_access_token
-  Scenario: Malformed access token
-    Given the header "Authorization" is set to a malformed token
-    When the request "deleteDeviceRoamingStatusSubscription" is sent
-    Then the response status code is 401
-    And the response header "Content-Type" is "application/json"
-    And the response property "$.status" is 401
-    And the response property "$.code" is "UNAUTHENTICATED"
-    And the response property "$.message" contains a user friendly text
-
-  @roaming_status_subscriptions_retrieve_list_401.10_no_authorization_header
-  Scenario: No Authorization header
-    Given the request header "Authorization" is removed
-    When the request "retrieveDeviceRoamingStatusSubscriptionList" is sent
-    Then the response status code is 401
-    And the response header "Content-Type" is "application/json"
-    And the response property "$.status" is 401
-    And the response property "$.code" is "UNAUTHENTICATED"
-    And the response property "$.message" contains a user friendly text
-
-  @roaming_status_subscriptions_retrieve_list_401.11_expired_access_token
-  Scenario: Expired access token
-    Given the header "Authorization" is set to a previously valid but now expired access token
-    When the request "retrieveDeviceRoamingStatusSubscriptionList" is sent
-    Then the response status code is 401
-    And the response header "Content-Type" is "application/json"
-    And the response property "$.status" is 401
-    And the response property "$.code" is "UNAUTHENTICATED"
-    And the response property "$.message" contains a user friendly text
-
-  @roaming_status_subscriptions_retrieve_list_401.12_malformed_access_token
-  Scenario: Malformed access token
-    Given the header "Authorization" is set to a malformed token
-    When the request "retrieveDeviceRoamingStatusSubscriptionList" is sent
-    Then the response status code is 401
-    And the response header "Content-Type" is "application/json"
-    And the response property "$.status" is 401
-    And the response property "$.code" is "UNAUTHENTICATED"
-    And the response property "$.message" contains a user friendly text
-
 ##################
 # Error code 403
 ##################
 
   @roaming_status_subscriptions_create_403.1_permission_denied
-  Scenario: subscription creation without having the required scope
-    Given the header "Authorization" set to an access token not including scope "device-roaming-status-subscriptions:org.camaraproject.device-roaming-status-subscriptions.v0.roaming-on:create"
+  Scenario: Roaming-on subscription creation without having the required scope
+    Given the access token does not include scope "device-roaming-status-subscriptions:org.camaraproject.device-roaming-status-subscriptions.v0.roaming-on:create"
     And the request body is compliant with the schema "#/components/schemas/SubscriptionRequest"
     And the request body property "$.types" is equal to "org.camaraproject.device-roaming-status-subscriptions.v0.roaming-on"
     When the request "createDeviceRoamingStatusSubscription" is sent
@@ -560,8 +385,8 @@ Feature: Device Roaming Status Subscriptions API, vwip - Operations createDevice
     And the response property "$.message" contains a user friendly text
 
   @roaming_status_subscriptions_create_403.2_permission_denied
-  Scenario: subscription creation without having the required scope
-    Given the header "Authorization" set to an access token not including scope "device-roaming-status-subscriptions:org.camaraproject.device-roaming-status-subscriptions.v0.roaming-off:create"
+  Scenario: Roaming-off subscription creation without having the required scope
+    Given the access token does not include scope "device-roaming-status-subscriptions:org.camaraproject.device-roaming-status-subscriptions.v0.roaming-off:create"
     And the request body is compliant with the schema "#/components/schemas/SubscriptionRequest"
     And the request body property "$.types" is equal to "org.camaraproject.device-roaming-status-subscriptions.v0.roaming-off"
     When the request "createDeviceRoamingStatusSubscription" is sent
@@ -570,9 +395,9 @@ Feature: Device Roaming Status Subscriptions API, vwip - Operations createDevice
     And the response property "$.code" is "PERMISSION_DENIED"
     And the response property "$.message" contains a user friendly text
 
-  @roaming_status_subscriptions_create_403.1_permission_denied
-  Scenario: subscription creation without having the required scope
-    Given the header "Authorization" set to an access token not including scope "device-roaming-status-subscriptions:org.camaraproject.device-roaming-status-subscriptions.v0.roaming-status:create"
+  @roaming_status_subscriptions_create_403.3_permission_denied
+  Scenario: Roaming-status subscription creation without having the required scope
+    Given the access token does not include scope "device-roaming-status-subscriptions:org.camaraproject.device-roaming-status-subscriptions.v0.roaming-status:create"
     And the request body is compliant with the schema "#/components/schemas/SubscriptionRequest"
     And the request body property "$.types" is equal to "org.camaraproject.device-roaming-status-subscriptions.v0.roaming-status"
     When the request "createDeviceRoamingStatusSubscription" is sent
@@ -581,9 +406,9 @@ Feature: Device Roaming Status Subscriptions API, vwip - Operations createDevice
     And the response property "$.code" is "PERMISSION_DENIED"
     And the response property "$.message" contains a user friendly text
 
-  @roaming_status_subscriptions_create_403.1_permission_denied
-  Scenario: subscription creation without having the required scope
-    Given the header "Authorization" set to an access token not including scope "device-roaming-status-subscriptions:org.camaraproject.device-roaming-status-subscriptions.v0.roaming-change-country:create"
+  @roaming_status_subscriptions_create_403.4_permission_denied
+  Scenario: Roaming-change-country subscription creation without having the required scope
+    Given the access token does not include scope "device-roaming-status-subscriptions:org.camaraproject.device-roaming-status-subscriptions.v0.roaming-change-country:create"
     And the request body is compliant with the schema "#/components/schemas/SubscriptionRequest"
     And the request body property "$.types" is equal to "org.camaraproject.device-roaming-status-subscriptions.v0.roaming-change-country"
     When the request "createDeviceRoamingStatusSubscription" is sent
@@ -594,7 +419,7 @@ Feature: Device Roaming Status Subscriptions API, vwip - Operations createDevice
 
   @roaming_status_subscriptions_create_403.5_subscription_mismatch_for_requested_events_subscription
   Scenario: Subscription creation with invalid access token for requested events subscription
-    Given the header "Authorization" set to an access token that includes only a single subscription scope
+    Given the access token includes only a single subscription scope
     And the request body is compliant with the schema "#/components/schemas/SubscriptionRequest"
     And the request body property "$.types" is equal to a valid type other than the event corresponding to the access token scope
     When the request "createDeviceRoamingStatusSubscription" is sent
@@ -607,31 +432,11 @@ Feature: Device Roaming Status Subscriptions API, vwip - Operations createDevice
 # Error code 404
 ##################
 
-  @roaming_status_subscriptions_404.1_retrieve_unknown_subscription_id
-  Scenario: Get subscription when subscriptionId is unknown to the system
-    Given that there is no valid subscription with "subscriptionId" equal to "id"
-    When the request "retrieveDeviceRoamingStatusSubscription" is sent
-    And the path parameter "subscriptionId" is equal to "id"
-    Then the response status code is 404
-    And the response property "$.status" is 404
-    And the response property "$.code" is "NOT_FOUND"
-    And the response property "$.message" contains a user friendly text
-
-  @roaming_status_subscriptions_404.2_delete_unknown_subscription_id
-  Scenario: Delete subscription with subscriptionId unknown to the system
-    Given that there is no valid subscription with "subscriptionId" equal to "id"
-    When the request "deleteDeviceRoamingStatusSubscription" is sent
-    And the path parameter "subscriptionId" is equal to "id"
-    Then the response code is 404
-    And the response property "$.status" is 404
-    And the response property "$.code" is "NOT_FOUND"
-    And the response property "$.message" contains a user friendly text
-
 ##################
 # Error code 422
 ##################
 
-  @roaming_status_subscriptions_C01.08_multi_event_not_supported
+  @roaming_status_subscriptions_422.01_multi_event_not_supported
   Scenario: Multi-event subscriptions are not supported
     Given a valid 2- or 3-legged access token
     And a request body that is compliant with the OAS schema at "#/component/schemas/SubscriptionRequest"
