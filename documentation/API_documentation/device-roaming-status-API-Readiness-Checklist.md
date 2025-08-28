@@ -4,18 +4,18 @@ Checklist for device-roaming-status 1.1.0 in r1.2.
 
 | Nr | API release assets  | alpha | release-candidate |  initial<br>public | stable<br> public | Status | Reference information |
 |----|----------------------------------------------|:-----:|:-----------------:|:-------:|:------:|:----:|:----:|
-|  1 | API definition                               |   M   |         M         |    M    |    M   |   Y  | [/code/API_definitions/device-roaming-status.yaml](/code/API_definitions/device-roaming-status.yaml) |
-|  2 | Design guidelines from Commonalities applied |   O   |         M         |    M    |    M   |   Y  | [r3.3](https://github.com/camaraproject/Commonalities/releases/tag/r3.3)     |
+|  1 | API definition                               |   M   |         M         |    M    |    M   |   Y  | [device-roaming-status.yaml](/code/API_definitions/device-roaming-status.yaml) |
+|  2 | Design guidelines from Commonalities applied |   O   |         M         |    M    |    M   |   Y  | [r3.3](https://github.com/camaraproject/Commonalities/releases/tag/r3.3)       |
 |  3 | Guidelines from ICM applied                  |   O   |         M         |    M    |    M   |   Y  | [r3.3](https://github.com/camaraproject/IdentityAndConsentManagement/releases/tag/r3.3)     |
 |  4 | API versioning convention applied            |   M   |         M         |    M    |    M   |   Y  |      |
 |  5 | API documentation                            |   M   |         M         |    M    |    M   |   Y  | inline in YAML |
-|  6 | User stories                                 |   O   |         O         |    O    |    M   |   Y  | [/documentation/API_documentation/device-roaming-status-User-Story.md](/documentation/API_documentation/device-roaming-status-User-Story.md)   |
-|  7 | Basic API test cases & documentation         |   O   |         M         |    M    |    M   |   Y  | [/code/Test_definitions/device-roaming-status.feature](/code/Test_definitions/device-roaming-status.feature) |
-|  8 | Enhanced API test cases & documentation      |   O   |         O         |    O    |    M   |   Y  | [/code/Test_definitions/device-roaming-status.feature](/code/Test_definitions/device-roaming-status.feature)   |
-|  9 | Test result statement                        |   O   |         O         |    O    |    M   |   Y  | na  |
-| 10 | API release numbering convention applied     |   M   |         M         |    M    |    M   |   Y  |     |
+|  6 | User stories                                 |   O   |         O         |    O    |    M   |   Y  | [device-roaming-status-User-Story.md](/documentation/API_documentation/device-roaming-status-User-Story.md)   |
+|  7 | Basic API test cases & documentation         |   O   |         M         |    M    |    M   |   Y  | [device-roaming-status.feature](/code/Test_definitions/device-roaming-status.feature) |
+|  8 | Enhanced API test cases & documentation      |   O   |         O         |    O    |    M   |   Y  | [device-roaming-status.feature](/code/Test_definitions/device-roaming-status.feature) |
+|  9 | Test result statement                        |   O   |         O         |    O    |    M   |   Y  | See [here](https://github.com/camaraproject/DeviceRoamingStatus/issues/46) |
+| 10 | API release numbering convention applied     |   M   |         M         |    M    |    M   |   Y  |         |
 | 11 | Change log updated                           |   M   |         M         |    M    |    M   |   Y  | [/CHANGELOG.md](/CHANGELOG.md) |
-| 12 | Previous public release was certified        |   O   |         O         |    O    |    M   |   Y  | see (1)   |
+| 12 | Previous public release was certified        |   O   |         O         |    O    |    M   |   Y  | See (1) |
 | 13 | API description (for marketing)              |   O   |         O         |    M    |    M   |   Y  | [wiki link](https://lf-camaraproject.atlassian.net/wiki/x/vYBmBQ) |
 
 (1) GSMA certified implementations of previous version by multiple operators (source: https://open-gateway.gsma.com/map as of 2025-03-11)
