@@ -14,7 +14,7 @@ Checklist for device-roaming-status 1.1.0 in r1.2.
 |  8 | Enhanced API test cases & documentation      |   O   |         O         |    O    |    M   |   Y  | [device-roaming-status.feature](/code/Test_definitions/device-roaming-status.feature) |
 |  9 | Test result statement                        |   O   |         O         |    O    |    M   |   Y  | See [here](https://github.com/camaraproject/DeviceRoamingStatus/issues/46) |
 | 10 | API release numbering convention applied     |   M   |         M         |    M    |    M   |   Y  |         |
-| 11 | Change log updated                           |   M   |         M         |    M    |    M   |   Y  | [/CHANGELOG.md](/CHANGELOG.md) |
+| 11 | Change log updated                           |   M   |         M         |    M    |    M   |   Y  | [CHANGELOG.md](/CHANGELOG.md) |
 | 12 | Previous public release was certified        |   O   |         O         |    O    |    M   |   Y  | See (1) |
 | 13 | API description (for marketing)              |   O   |         O         |    M    |    M   |   Y  | [wiki link](https://lf-camaraproject.atlassian.net/wiki/x/vYBmBQ) |
 
