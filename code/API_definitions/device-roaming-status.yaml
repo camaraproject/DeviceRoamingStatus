@@ -145,6 +145,7 @@ paths:
                 summary: Device not provided
                 description: The device has to be deducted from token
                 value:
+                  {}
         required: true
       responses:
         "200":
