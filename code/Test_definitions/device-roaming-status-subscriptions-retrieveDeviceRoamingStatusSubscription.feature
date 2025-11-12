@@ -1,5 +1,5 @@
 # device-status-roaming-subscriptions-retrieveDeviceRoamingStatusSubscription
-Feature: Device Roaming Status Subscriptions API, v0.8.0 - Operation retrieveDeviceRoamingStatusSubscription
+Feature: Device Roaming Status Subscriptions API, vwip - Operation retrieveDeviceRoamingStatusSubscription
 
   # Input to be provided by the implementation to the tester
   #
@@ -14,7 +14,7 @@ Feature: Device Roaming Status Subscriptions API, v0.8.0 - Operation retrieveDev
   # References to OAS spec schemas refer to schemas specified in device-roaming-status-subscriptions.yaml
 
   Background: Common Device Roaming Status Subscriptions setup
-    Given the resource "{apiroot}/device-roaming-status-subscriptions/v0.8/subscriptions" as base-url
+    Given the resource "{apiroot}/device-roaming-status-subscriptions/vwip/subscriptions" as base-url
     And the header "Authorization" is set to a valid access token
     And the header "x-correlator" complies with the schema at "#/components/schemas/XCorrelator"
 
