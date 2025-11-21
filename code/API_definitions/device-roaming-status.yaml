@@ -214,7 +214,7 @@ components:
 
     LastStatusTime:
       description: |
-        The last time that the device roaming status was confirmed to be correct by the API provider. It might not be possible to provide the current status becuase, for example, the device may not be connected to any mobile network.
+        The last time that the device roaming status was confirmed to be correct by the API provider. It might not be possible to provide the current status because, for example, the device may not be connected to any mobile network.
         It must follow [RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) and must have time zone.
       type: string
       format: date-time
