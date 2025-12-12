@@ -23,20 +23,29 @@ Incubating API Repository to evolve and maintain the definitions and documentati
 * Started: July 2022 (within [DeviceStatus](https://github.com/camaraproject/DeviceStatus) repository)
 * Incubating stage since: February 2025
 
+<!-- CAMARA:RELEASE-INFO:START -->
+<!-- This section is automatically maintained by the CAMARA project-administration tooling: https://github.com/camaraproject/project-administration -->
+
 ## Release Information
 
-The latest public release of the DeviceRoamingStatus repository is available [here](https://github.com/camaraproject/DeviceRoamingStatus/releases/latest)
+> [!NOTE]
+> Please be aware that the project will have frequent updates to the main branch. There are no compatibility guarantees associated with code in any branch, including main, until a new release is created. For example, changes may be reverted before a release is created. **For best results, use the latest available release**.
 
-  * **device-roaming-status v1.1.0**  
-  [[YAML]](https://github.com/camaraproject/DeviceRoamingStatus/blob/r1.2/code/API_definitions/device-roaming-status.yaml)
-  [[View it on ReDoc]](https://redocly.github.io/redoc/?url=https://raw.githubusercontent.com/camaraproject/DeviceRoamingStatus/r1.2/code/API_definitions/device-roaming-status.yaml&nocors)
-  [[View it on Swagger Editor]](https://camaraproject.github.io/swagger-ui/?url=https://raw.githubusercontent.com/camaraproject/DeviceRoamingStatus/r1.2/code/API_definitions/device-roaming-status.yaml)
-  * **device-roaming-status-subscriptions v0.8.0**  
+* **NEW**: The latest public release is [r1.2](https://github.com/camaraproject/DeviceRoamingStatus/releases/tag/r1.2) (Fall25), with the following API versions:
+  * **device-roaming-status-subscriptions v0.8.0**
   [[YAML]](https://github.com/camaraproject/DeviceRoamingStatus/blob/r1.2/code/API_definitions/device-roaming-status-subscriptions.yaml)
-  [[View it on ReDoc]](https://redocly.github.io/redoc/?url=https://raw.githubusercontent.com/camaraproject/DeviceRoamingStatus/r1.2/code/API_definitions/device-roaming-status-subscriptions.yaml&nocors)
-  [[View it on Swagger Editor]](https://camaraproject.github.io/swagger-ui/?url=https://raw.githubusercontent.com/camaraproject/DeviceRoamingStatus/r1.2/code/API_definitions/device-roaming-status-subscriptions.yaml)
+  [[ReDoc]](https://redocly.github.io/redoc/?url=https://raw.githubusercontent.com/camaraproject/DeviceRoamingStatus/r1.2/code/API_definitions/device-roaming-status-subscriptions.yaml&nocors)
+  [[Swagger]](https://camaraproject.github.io/swagger-ui/?url=https://raw.githubusercontent.com/camaraproject/DeviceRoamingStatus/r1.2/code/API_definitions/device-roaming-status-subscriptions.yaml)
+  * **device-roaming-status v1.1.0**
+  [[YAML]](https://github.com/camaraproject/DeviceRoamingStatus/blob/r1.2/code/API_definitions/device-roaming-status.yaml)
+  [[ReDoc]](https://redocly.github.io/redoc/?url=https://raw.githubusercontent.com/camaraproject/DeviceRoamingStatus/r1.2/code/API_definitions/device-roaming-status.yaml&nocors)
+  [[Swagger]](https://camaraproject.github.io/swagger-ui/?url=https://raw.githubusercontent.com/camaraproject/DeviceRoamingStatus/r1.2/code/API_definitions/device-roaming-status.yaml)
+* The latest public release is always available here: https://github.com/camaraproject/DeviceRoamingStatus/releases/latest
+* Other releases of this repository are available in https://github.com/camaraproject/DeviceRoamingStatus/releases
+* For changes see [CHANGELOG.md](https://github.com/camaraproject/DeviceRoamingStatus/blob/main/CHANGELOG.md)
 
-Pre-releases of this sub project are available [here](https://github.com/camaraproject/DeviceRoamingStatus/releases). For changes see the [change log](https://github.com/camaraproject/DeviceRoamingStatus/blob/main/CHANGELOG.md).
+_The above section is automatically synchronized by CAMARA project-administration._
+<!-- CAMARA:RELEASE-INFO:END -->
 
 ## Contributing
 
