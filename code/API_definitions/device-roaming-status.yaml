@@ -156,7 +156,7 @@ paths:
                     roaming: true
                     countryCode: 262
                     countryName: ["DE"]
-                Multiple Country Codes:
+                Multiple Country Names:
                   value:
                     lastStatusTime: "2024-02-20T10:41:38.657Z"
                     roaming: true
