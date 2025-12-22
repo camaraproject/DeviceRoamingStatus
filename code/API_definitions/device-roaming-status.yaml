@@ -133,7 +133,7 @@ paths:
                 value:
                   device:
                     ipv4Address:
-                      publicAddress: 123.234.1.2
+                      publicAddress: "123.234.1.2"
                       publicPort: 1234
               INPUT_IP_ADDRESS_V6:
                 summary: IPv6 address
