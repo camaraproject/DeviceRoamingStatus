@@ -120,6 +120,32 @@ paths:
           application/json:
             schema:
               $ref: "#/components/schemas/RoamingStatusRequest"
+            examples:
+              INPUT_PHONE_NUMBER:
+                summary: Phone number
+                description: Retrieve roaming status for a device identified by a phone number
+                value:
+                  device:
+                    phoneNumber: "+123456789"
+              INPUT_IP_ADDRESS_V4:
+                summary: IPv4 address
+                description: Retrieve roaming status for a device identified by an IPv4 address
+                value:
+                  device:
+                    ipv4Address:
+                      publicAddress: "123.234.1.2"
+                      publicPort: 1234
+              INPUT_IP_ADDRESS_V6:
+                summary: IPv6 address
+                description: Retrieve roaming status for a device identified by an IPv6 address
+                value:
+                  device:
+                    ipv6Address: "2001:db8:85a3:8d3:1319:8a2e:370:7344"
+              INPUT_NO_DEVICE:
+                summary: Device not provided
+                description: The device has to be deducted from token
+                value:
+                  {}
         required: true
       responses:
         "200":
