@@ -304,7 +304,7 @@ Feature: Device Roaming Status Subscriptions API, vwip - Operation createDeviceR
   Scenario: Subscription creation with invalid credential type
     Given the request body is compliant with the schema "#/components/schemas/SubscriptionRequest"
     And the request property "$.sinkCredential.accessTokenType" is equal to "bearer"
-    And the request property "$.sinkCredential.credentialType" is not equal to "ACCESSTOKEN"
+    And the request property "$.sinkCredential.credentialType" is not equal to "ACCESSTOKEN" and is not set to "PRIVATE_KEY_JWT"
     When the request "createDeviceRoamingStatusSubscription" is sent
     Then the response status code is 400
     And the response property "$.status" is 400
@@ -445,4 +445,15 @@ Feature: Device Roaming Status Subscriptions API, vwip - Operation createDeviceR
     Then the response status code is 422
     And the response property "$.status" is 422
     And the response property "$.code" is "MULTIEVENT_SUBSCRIPTION_NOT_SUPPORTED"
+    And the response property "$.message" contains a user friendly text
+
+  @roaming_status_subscriptions_422.02_creation_with_private_jwt_key_not_configured
+  Scenario: Private JWT Key not configured for subscription creation
+    Given the API provider requires the use of a Private JWT key mechanism for subscription creation authentication
+    And the Private JWT key mechanism is not pre-configured in the environment
+    And a valid subscription request body with the property "$.sinkCredential.credentialType" set to "PRIVATE_KEY_JWT"
+    When the request "createDeviceRoamingStatusSubscription" is sent
+    Then the response code is 422
+    And the response property "$.status" is 422
+    And the response property "$.code" is "PRIVATE_KEY_JWT_NOT_CONFIGURED"
     And the response property "$.message" contains a user friendly text
