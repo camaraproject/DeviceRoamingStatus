@@ -87,6 +87,7 @@ Changes documented below are compared to version 0.8.0.
 ### Fixed
 
 * fix: declare CloudEvent schema type by @hdamker in https://github.com/camaraproject/DeviceRoamingStatus/pull/77
+* Fix example for Network Access Identifier by @bigludo7 in https://github.com/camaraproject/DeviceRoamingStatus/pull/58
 
 ### Removed
 
