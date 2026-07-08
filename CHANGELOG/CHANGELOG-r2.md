@@ -78,19 +78,19 @@ Changes documented below are compared to version 0.8.0.
 
 ### Added
 
-* N/A
+* Add examples for roaming status retrieval by @bigludo7 in https://github.com/camaraproject/DeviceRoamingStatus/pull/53
 
 ### Changed
 
-* N/A
+* Update API definitions to fix CAMARA validation warnings and hints by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/78
 
 ### Fixed
 
-* N/A
+* fix: declare CloudEvent schema type by @hdamker in https://github.com/camaraproject/DeviceRoamingStatus/pull/77
 
 ### Removed
 
-* N/A
+* Delete redundant API Readiness Checklists by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/82
 
 ## device-roaming-status 1.2.0-rc.3
 
@@ -113,15 +113,17 @@ Changes documented below are compared to version 1.1.0.
 
 ### Changed
 
-* N/A
+* Clarify LastStatusTime schema description in YAML by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/56
+* Update API definitions to fix CAMARA validation warnings and hints by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/78
 
 ### Fixed
 
-* N/A
+* Fix example label: Multiple Country Codes → Multiple Country Names by @sachinvodafone in https://github.com/camaraproject/DeviceRoamingStatus/pull/54
+* Fix example for Network Access Identifier by @bigludo7 in https://github.com/camaraproject/DeviceRoamingStatus/pull/58
 
 ### Removed
 
-* N/A
+* Delete redundant API Readiness Checklists by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/82
 
 **Full Changelog**: https://github.com/camaraproject/DeviceRoamingStatus/compare/r1.2...r2.1
 
