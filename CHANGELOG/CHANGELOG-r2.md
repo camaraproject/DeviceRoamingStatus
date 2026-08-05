@@ -74,7 +74,11 @@ Changes documented below are compared to version 0.8.0.
 
 ### Breaking changes
 
-* N/A
+* Update API definitions to fix CAMARA validation warnings and hints by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/78
+  - Pagination for listing of subscriptions using GET /subscriptions is now supported
+    -  Addition of `page` and `perPage` query parameters to control pagination
+    -  Returned subscriptions are now embedded in the array `subscriptions` within the response JSON, with the page tracked within the `pagination` JSON
+    -  Addition of response headers `X-Total-Count`, `X-Total-Pages` and `Link` to facilitate page navigation
 
 ### Added
 
@@ -83,6 +87,10 @@ Changes documented below are compared to version 0.8.0.
 ### Changed
 
 * Update API definitions to fix CAMARA validation warnings and hints by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/78
+  - Pagination for listing of subscriptions using GET /subscriptions is now supported
+    -  Addition of `page` and `perPage` query parameters to control pagination
+    -  Returned subscriptions are now embedded in the array `subscriptions` within the response JSON, with the page tracked within the `pagination` JSON
+    -  Addition of response headers `X-Total-Count`, `X-Total-Pages` and `Link` to facilitate page navigation
 
 ### Fixed
 
