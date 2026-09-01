@@ -2,41 +2,43 @@ openapi: 3.0.3
 info:
   title: Device Roaming Status Subscriptions
   description: |
-    This API provides the API consumer with the ability to subscribe to Roaming status events.
+    This API provides the API consumer with the ability to subscribe to roaming status events.
 
     # Introduction
 
-    ## Roaming Status
-    API consumer is able to be notified whether the roaming status of a certain user device has changed.
-    This capability is provided via a subscription  request - in this case the roaming situation is not in the response but event notification is sent back to the event subscriber when roaming situation has changed.
+    API consumer is able to be notified whether the roaming status of a certain user device has changed. This capability is requested via a subscription request - in this case the roaming status is not contained in the API response, but instead an event notification is sent back to the event subscriber whenever the roaming situation changes.
 
     # Relevant terms and definitions
 
-    * **Device**: A device refers to any physical entity that can connect to a network and participate in network communication.
+    * **Roaming**:\
+      For the purposes of this API, a device is considered to be roaming if it is connected to a mobile network with a different mobile country code (MCC) to its home network. A device is not considered to be roaming if it is connected to a mobile network that has the same MCC as the home network, even if that network is not the home network. Where the home network has a MCC for a country that has been allocated more than one MCC, a device is not considered to be roaming if it is connected to any network that uses a MCC for that country.
 
-        At least one identifier for the device out of four options must be provided: IPv4 address, IPv6 address, Phone number, or Network Access Identifier assigned by the mobile network operator for the device. Where more than one device identifier is provided, only one identifier will be selected by the implementation and this choice indicated to the API consumer in the subscription creation response.
+    * **Device**:\
+      A device refers to any physical entity that can connect to a network and participate in network communication.
 
-        Note: Network Access Identifier is defined for future use and will not be supported with this version of the API.
+      At least one identifier for the device out of four options must be provided: IPv4 address, IPv6 address, Phone number, or Network Access Identifier assigned by the mobile network operator for the device. Where more than one device identifier is provided, only one identifier will be selected by the implementation and this choice indicated to the API consumer in the subscription creation response.
+
+      Note: Network Access Identifier is defined for future use and will not be supported with this version of the API.
+
+    * **Country**:\
+      The mobile country code and associated ISO country name. The visited country information is provided when the device is roaming. When the device is not roaming, the country will be that of the home network for the device, but this information is not provided by the API.
 
     # API Functionality
 
     The API exposes following capability:
 
-    ## Device roaming status subscription
+    ## Device Roaming Status Subscription
 
-    These endpoints allow to manage event subscription on roaming device status event.
-    The CAMARA subscription model is detailed in the CAMARA API design guideline document and follows CloudEvents specification.
+    These endpoints allow the API consumer to manage event subscriptions for device roaming status events.
+    The CAMARA subscription model is detailed in the `CAMARA API Event Subscription and Notification Guide` and uses notifications that follow the CloudEvents specification.
 
-    When subscribing, it is mandatory to provide the event `type` you are subscribing to, as multiple subscription-types are managed by this API.
+    When creating a subscription, it is mandatory to provide the event type you are subscribing to, as multiple subscription-types are managed by this API.
 
-    Following event ``type`` are managed for this API:
-      - ``org.camaraproject.device-roaming-status-subscriptions.v0.roaming-status`` - Event triggered when the device switch from roaming ON to roaming OFF and conversely
-
-      - ``org.camaraproject.device-roaming-status-subscriptions.v0.roaming-on`` - Event triggered when the device switch from roaming OFF to roaming ON
-
-      - ``org.camaraproject.device-roaming-status-subscriptions.v0.roaming-off``: Event triggered when the device switch from roaming ON to roaming OFF
-
-      - ``org.camaraproject.device-roaming-status-subscriptions.v0.roaming-change-country``: Event triggered when the device in roaming change country code
+    Following event types are defined for this API:
+      - `org.camaraproject.device-roaming-status-subscriptions.v0.roaming-status` is sent when the device roaming status changes (either starting or stopping roaming)
+      - `org.camaraproject.device-roaming-status-subscriptions.v0.roaming-on` is sent when the device roaming status changes to roaming ON
+      - `org.camaraproject.device-roaming-status-subscriptions.v0.roaming-off` is sent when the device roaming status changes to roaming OFF
+      - `org.camaraproject.device-roaming-status-subscriptions.v0.roaming-change-country` is sent whenever the device remains roaming but there is a change in country name
 
     Note: Additionally, the following events could be sent, which do not require a dedicated subscription:
       - `org.camaraproject.device-roaming-status-subscriptions.v0.subscription-started` is sent when the subscription starts.
@@ -44,58 +46,52 @@ info:
       - `org.camaraproject.device-roaming-status-subscriptions.v0.subscription-ended` is sent when the subscription ends.
 
     It is used in following cases:
-      - the subscription expire time (optionally set by the requester) has been reached
-      - the maximum number of subscription events (optionally set by the requester) has been reached
-      - the subscription was deleted by the requester
-      - the Access Token `sinkCredential` (optionally set by the requester) expiration time has been reached
-      - the API server has to stop sending notification prematurely
+      - the subscription expire time (optionally set by the API consumer) has been reached
+      - the maximum number of subscription events (optionally set by the API consumer) has been reached
+      - the subscription was deleted by the API consumer
+      - the access token `sinkCredential` (optionally set by the API Consumer) expiration time has been reached
+      - the API provider has to stop sending notification prematurely
 
-    **Note on combined usage of ``initialEvent`` and ``subscriptionMaxEvents``**:
+    **Note on combined usage of `initialEvent` and `subscriptionMaxEvents`**:\
+    If an event is triggered because `initialEvent` set to `true`, this event will be counted towards `subscriptionMaxEvents` if that has been specified
 
-    If an event is triggered following ``initialEvent`` set to true,
-    this event will be counted towards ``subscriptionMaxEvents`` (if provided).
+    **Clarification on `initialEvent` & `event-type` behaviour:**\
+    Following table illustrate behaviour regarding event triggering depending on the **initial** roaming state of the device:
 
-    **Clarification on ``initialEvent`` & ``event-type`` behaviour:**
+    | subscribed event-type  | device roaming status at subscription time | event sent if `initialEvent` set to `true` |
+    | ---------------------- | ------------------------------------------ | ------------------------------------------ |
+    | roaming-status         | Roaming                                    | Yes                                        |
+    | roaming-status         | Not roaming                                | Yes                                        |
+    | roaming-on             | Roaming                                    | Yes                                        |
+    | roaming-on             | Not roaming                                | No                                         |
+    | roaming-off            | Roaming                                    | No                                         |
+    | roaming-off            | Not roaming                                | Yes                                        |
+    | roaming-change-country | Not roaming                                | No(*)                                      |
+    | roaming-change-country | Roaming                                    | No(*)                                      |
 
-    Following table illustrate behaviour regarding event triggering depending on **initial** roaming state of the device:
+    (*) Setting `initialEvent` to `true` does not generate any inital even for the `roaming-change-country` event type.
 
-    | subscribed event-type | device roaming status at subscription time | event sent if ``initialEvent`` set to true |
-    | ----------------------| ------------- | --------------- |
-    | roaming-status  | Roaming On |   Yes |
-    | roaming-status  | Roaming Off | Yes |
-    | roaming-on  | Roaming On | Yes |
-    | roaming-on  | Roaming Off | No |
-    | roaming-off  | Roaming On | No |
-    | roaming-off  | Roaming Off | Yes |
-    | roaming-change-country  | Roaming Off | No(*) |
-    | roaming-change-country  | Roaming On | No(*) |
+    **Clarification on the `roaming-change-country` event type:**\
+    The `roaming-change-country` event is sent only when the device is roaming and remains roaming following a change in country name.
 
-    (*) Use of ``initialEvent`` has no impact on roaming-change-country event-type.
-
-    **Clarification on ``roaming-change-country`` event-type:**
-
-    ``roaming-change-country`` event is sent only when the device stays in roaming situation and change country.
-    Suppose a device from Germany & all event types subscribed:
-
+    For example, if a device has a home network in Germany and all event types are subscribed to:\
     - Device moves from Germany to France:
-        - triggered: roaming-status & roaming-on
-        - not triggered: roaming-change-country & roaming-off
-    - Device moves from France to Belgium:
-        - triggered: roaming-change-country
-        - not triggered: roaming-status,  roaming-on & roaming-off
-    - Device moves from Belgium back to Germany
-        - triggered: roaming-status & roaming-off
-        - not triggered: roaming-on & roaming-change-country
-
+        - triggered: `roaming-status` & `roaming-on`
+        - not triggered: `roaming-change-country` & `roaming-off`
+    - Device then moves from France to Belgium:
+        - triggered: `roaming-change-country`
+        - not triggered: `roaming-status`, `roaming-on` & `roaming-off`
+    - Device then moves from Belgium back to Germany
+        - triggered: `roaming-status` & `roaming-off`
+        - not triggered: `roaming-on` & `roaming-change-country`
 
     ### Notifications callback
 
-    This endpoint describes the event notification received on subscription listener side when the event occurred.
-    As for subscription, detailed description of the event notification is provided in the CAMARA API design guideline document.
+    This endpoint describes the format of the event notification received by the API consumer when an event is sent.
+    A detailed description of the event subscription and notification mechanism is provided in the `CAMARA API Event Subscription and Notification Guide`.
 
-    _**WARNING**: This callback endpoint must be exposed on the consumer side as `POST /{$request.body#/sink}`.
-      Developers may provide a callback URL on which notifications regarding reachability-status can be received from the service provider.
-      If an event occurs the application will send events to the provided webhook - `sink`._
+    _**WARNING**:\
+      API consumers may optionally provide a callback URL on which reachability status notifications from the API provider can be received. This callback endpoint must be exposed by API consumer as `POST /{$request.body#/sink}`. When an event occurs, the API provider will send the event to the URI specified by `sink`._
 
     <!-- CAMARA:MANDATORY:authorization-and-authentication:BEGIN -->
 

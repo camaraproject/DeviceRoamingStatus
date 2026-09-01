@@ -19,25 +19,29 @@ info:
 
     ## Relevant terms and definitions
 
-    * **Device**: A device refers to any physical entity that can connect to a network and participate in network communication.
+    * **Roaming**:\
+      For the purposes of this API, a device is considered to be roaming if it is connected to a mobile network with a different mobile country code (MCC) to its home network. A device is not considered to be roaming if it is connected to a mobile network that has the same MCC as the home network, even if that network is not the home network. Where the home network has a MCC for a country that has been allocated more than one MCC, a device is not considered to be roaming if it is connected to any network that uses a MCC for that country.
 
-        At least one identifier for the device (user equipment) out of four options must be provided: IPv4 address, IPv6 address, Phone number, or Network Access Identifier assigned by the mobile network operator for the device. Where more than one device identifier is provided, only one identifier will be selected by the implementation and this choice indicated to the API consumer in the session creation response.
+    * **Device**:\
+      A device refers to any physical entity that can connect to a network and participate in network communication.
 
-        Note: Network Access Identifier is defined for future use and will not be supported with this version of the API.
+      At least one identifier for the device (user equipment) out of four options must be provided: IPv4 address, IPv6 address, Phone number, or Network Access Identifier assigned by the mobile network operator for the device. Where more than one device identifier is provided, only one identifier will be selected by the implementation and this choice indicated to the API consumer in the session creation response.
 
-    * **Roaming** : Roaming status - `true`, if device is in roaming situation - `false` else.
+      Note: Network Access Identifier is defined for future use and will not be supported with this version of the API.
 
-    * **Country** : Country code and name - visited country information, provided if the device is in roaming situation.
+    * **Country**:\
+      The mobile country code and associated ISO country name. The visited country information is provided when the device is roaming. When the device is not roaming, the country will be that of the home network for the device, but this information is not provided by the API.
 
-    * **LastStatusTime** : The time when the status was last confirmed to be correct. An older status is more likely to now be incorrect.
+    * **Last Status Time**:\
+      The time when the roaming status was last confirmed to be correct by the API provider. An older status is more likely to now be incorrect. The API provider may be unable to confirm a more recent status because, for example, the device may no longer be connected to the mobile network.
 
     # API Functionality
 
     The API exposes following capabilities:
 
-    ## Device roaming situation
+    ## Device Roaming Status
 
-    The endpoint `POST /retrieve` allows to get roaming status and country information (if device in roaming situation) synchronously.
+    The endpoint `POST /retrieve` allows the API consumer to synchronously get the roaming status and country information (when roaming) for a specific device
 
     <!-- CAMARA:MANDATORY:authorization-and-authentication:BEGIN -->
 
