@@ -424,21 +424,26 @@ components:
         $ref: "../common/CAMARA_event_common.yaml#/components/schemas/SubscriptionId"
 
   schemas:
-    CreateSubscriptionDetailLocal:
+    CreateSubscriptionDetail:
       description: The detail of the requested event subscription.
       type: object
       properties:
         device:
           $ref: "../common/CAMARA_common.yaml#/components/schemas/Device"
 
-    ConfigLocal:
+    Config:
       description: Config schema allowing for device to be specified as part of subscription detail
       allOf:
-        - $ref: "../common/CAMARA_event_common.yaml#/components/schemas/Config"
+        - $ref: "../common/CAMARA_event_common.yaml#/components/schemas/ConfigBase"
         - type: object
           properties:
             subscriptionDetail:
-              $ref: "#/components/schemas/CreateSubscriptionDetailLocal"
+              $ref: "#/components/schemas/CreateSubscriptionDetail"
+            initialEvent:
+              description: |
+                Set to `true` by API consumer if consumer wants to get an event as soon as the subscription is created and current situation reflects event request.
+                Example: Consumer request Roaming event. If consumer sets initialEvent to true and device is in roaming situation, an event is triggered
+              type: boolean
 
     ApiEventType:
       type: string
