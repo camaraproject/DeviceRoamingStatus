@@ -517,7 +517,7 @@ components:
           items:
             $ref: "#/components/schemas/ApiEventType"
         config:
-          $ref: '#/components/schemas/ConfigLocal'
+          $ref: '#/components/schemas/Config'
         id:
           $ref: "../common/CAMARA_event_common.yaml#/components/schemas/SubscriptionId"
         startsAt:
@@ -591,7 +591,7 @@ components:
           items:
             $ref: "#/components/schemas/ApiEventType"
         config:
-          $ref: "#/components/schemas/ConfigLocal"
+          $ref: "#/components/schemas/Config"
       discriminator:
         propertyName: protocol
         mapping:
