@@ -204,6 +204,13 @@ paths:
                     roaming: true
                     countryCode: 340
                     countryName: ["BL", "GF", "GP", "MF", "MQ"]
+                Last Status Update Time Unknown:
+                  description: The API provider has recorded that the device is currently roaming, but has no information as to when that status was last confirmed to be correct. The API consumer must take this uncertainty into account when deciding on the value of the information to them.
+                  value:
+                    lastStatusTime: null
+                    roaming: true
+                    countryCode: 262
+                    countryName: ["DE"]
         "400":
           $ref: "../common/CAMARA_common.yaml#/components/responses/Generic400"
         "401":
@@ -229,8 +236,11 @@ components:
       description: |
         The last time that the device roaming status was confirmed to be correct by the API provider. It might not be possible to provide the current status because, for example, the device may not be connected to any mobile network.
         It must follow [RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) and must have time zone.
-      allOf:
-        - $ref: "../common/CAMARA_common.yaml#/components/schemas/DateTime"
+      type: string
+      format: date-time
+      maxLength: 64
+      nullable: true
+      example: "2018-04-05T17:31:00Z"
 
     ActiveRoaming:
       description: Roaming status. True, if it is roaming
