@@ -62,19 +62,51 @@ Changes documented below are compared to version 0.9.0-rc.1.
 
 ### Breaking changes
 
-* N/A
+* [Added / Changed / Removed] Updates for Commonalities r4.4 by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/102
+  * subscriptionDetail is now a required subscription creation parameter
+  * Update error response schema to use new common schema or locally defined schema
+    * Add 422 MULTIEVENT_SUBSCRIPTION_NOT_SUPPORTED, MULTIEVENT_COMBINATION_TEMPORARILY_NOT_SUPPORTED and PRIVATE_KEY_JWT_NOT_CONFIGURED for device-roaming-status-subscriptions subscription creation
+    * Add 404 IDENTIFIER_NOT_FOUND for device-roaming-status-subscriptions subscription creation
 
 ### Added
 
-* N/A
+* [Added / Changed / Removed] Updates for Commonalities r4.4 by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/102
+  * Update error response schema to use new common schema or locally defined schema
+    * Add 422 MULTIEVENT_SUBSCRIPTION_NOT_SUPPORTED, MULTIEVENT_COMBINATION_TEMPORARILY_NOT_SUPPORTED and PRIVATE_KEY_JWT_NOT_CONFIGURED for device-roaming-status-subscriptions subscription creation
+    * Add 404 IDENTIFIER_NOT_FOUND for device-roaming-status-subscriptions subscription creation
+  - Rename device-roaming-status.feature to device-roaming-status-getRoamingStatus.feature
+  - Add new test scenarios
+    - @roaming_status_subscriptions_09_subscription_creation_initial_event
+    - @roaming_status_subscriptions_10_Create_roaming_status_subscription_sync_with_accesstoken_sink_credential
+    - @roaming_status_subscriptions_11_Create_roaming_status_subscription_sync_with_private_jwt_key_sink_credential_out_of_band_provisioning
+    - @roaming_status_subscriptions_12_Create_roaming_status_subscription_sync_with_private_jwt_key_sink_credential_in_band_provisioning
+    - @roaming_status_subscriptions_422.02_creation_with_private_jwt_key_not_configured
+    - @roaming_status_subscriptions_03_Operation_to_retrieve_subscription_based_on_an_existing_subscription-id_access_token_sink_credential_returned
+    - @roaming_status_subscriptions_04_Operation_to_retrieve_subscription_based_on_an_existing_subscription-id_private_jwt_key_sink_credential_returned
+* [Added] Update device roaming status subscription list scenarios by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/97
+  - Add new test scenarios or rename existing scenarios
+    - @roaming_status_subscriptions_01_operation_to_retrieve_list_of_subscriptions_2legs
+    - @roaming_status_subscriptions_02_operation_to_retrieve_list_of_subscriptions_3legs
+    - @roaming_status_subscriptions_03_operation_to_retrieve_list_of_subscriptions_when_no_records
+    - @roaming_status_subscriptions_04_pagination_default_values
+    - @roaming_status_subscriptions_05_pagination_custom_values
+    - @roaming_status_subscriptions_06_pagination_middle_page
+    - @roaming_status_subscriptions_07_pagination_last_page
+    - @roaming_status_subscriptions_retrieve_list_400.01_pagination_invalid_page_parameter
+    - @roaming_status_subscriptions_retrieve_list_400.02_pagination_invalid_perPage_parameter
 
 ### Changed
 
-* N/A
+* [Added / Changed / Removed] Updates for Commonalities r4.4 by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/102
+  - Renumber some test scenarios
+  - subscriptionDetail is now a required subscription creation parameter
+  - Update examples
+* [Changed] Refactor subscription schemas for Commonalities r4.4 and add initialEvent by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/101
+* [Changed] Documentation update for improved clarity by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/96
 
 ### Fixed
 
-* N/A
+* [Fixed] Correct info.description documentation regarding identified device notification by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/90
 
 ### Removed
 
@@ -97,11 +129,18 @@ Changes documented below are compared to version 1.2.0-rc.3.
 
 ### Added
 
-* N/A
+* [Added / Changed / Removed] Updates for Commonalities r4.4 by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/102
+  - Add new test scenarios
+    - @device_roaming_status_429.01_Too_Many_Requests
+    - @device_roaming_status_429.02_Quota_Exceeded
 
 ### Changed
 
-* N/A
+* [Added / Changed / Removed] Updates for Commonalities r4.4 by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/102
+  - Rename device-roaming-status.feature to device-roaming-status-getRoamingStatus.feature
+  - Renumber some test scenarios
+  - Update examples
+* [Changed] Documentation update for improved clarity by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/96
 
 ### Fixed
 
@@ -109,7 +148,9 @@ Changes documented below are compared to version 1.2.0-rc.3.
 
 ### Removed
 
-* N/A
+* [Added / Changed / Removed] Updates for Commonalities r4.4 by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/102
+  - Update error response schema to use new common schema or locally defined schema
+    - Remove 403 INVALID_TOKEN_CONTEXT and 404 NOT_FOUND from device-roaming-status
 
 **Full Changelog**: https://github.com/camaraproject/DeviceRoamingStatus/compare/r2.1...r2.2
 
