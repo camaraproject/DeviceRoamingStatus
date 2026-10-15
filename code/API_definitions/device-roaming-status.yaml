@@ -19,25 +19,80 @@ info:
 
     ## Relevant terms and definitions
 
-    * **Device**: A device refers to any physical entity that can connect to a network and participate in network communication.
+    * **Roaming**:\
+      For the purposes of this API, a device is considered to be roaming if it is connected to a mobile network with a different mobile country code (MCC) to its home network. A device is not considered to be roaming if it is connected to a mobile network that has the same MCC as the home network, even if that network is not the home network. Where a country has been allocated more than one MCC, a device is not considered to be roaming if it is connected to any network that uses a MCC allocated for that country, even if that MCC is different to that of the home network.
 
-        At least one identifier for the device (user equipment) out of four options must be provided: IPv4 address, IPv6 address, Phone number, or Network Access Identifier assigned by the mobile network operator for the device. Where more than one device identifier is provided, only one identifier will be selected by the implementation and this choice indicated to the API consumer in the session creation response.
+    * **Device**:\
+      A device refers to any physical hardware that can connect to a mobile network and participate in network communication.
 
-        Note: Network Access Identifier is defined for future use and will not be supported with this version of the API.
+      At least one identifier for the device (user equipment) out of four options must be provided: IPv4 address, IPv6 address, phone number, or network access identifier assigned by the mobile network operator for the device. Where more than one device identifier is provided, only one identifier will be selected by the implementation and this choice indicated to the API consumer in the response together with the roaming status.
 
-    * **Roaming** : Roaming status - `true`, if device is in roaming situation - `false` else.
+      Note: Network Access Identifier is defined for future use and will not be supported with this version of the API.
 
-    * **Country** : Country code and name - visited country information, provided if the device is in roaming situation.
+    * **Country**:\
+      The mobile country code and associated ISO country name. The visited country information is provided when the device is roaming. When the device is not roaming, the country will be that of the home network for the device, but this information is not provided by the API.
 
-    * **LastStatusTime** : The time when the status was last confirmed to be correct. An older status is more likely to now be incorrect.
+    * **Last Status Time**:\
+      The time when the roaming status was last confirmed to be correct by the API provider. An older status is more likely to now be incorrect. The API provider may be unable to confirm a more recent status because, for example, the device may no longer be connected to the mobile network.
 
     # API Functionality
 
     The API exposes following capabilities:
 
-    ## Device roaming situation
+    ## Device Roaming Status
 
-    The endpoint `POST /retrieve` allows to get roaming status and country information (if device in roaming situation) synchronously.
+    The endpoint `POST /retrieve` allows the API consumer to synchronously get the roaming status and country information (when roaming) for a specific device
+
+    An example of a JSON response object is as follows:
+    ```
+    {
+      "lastStatusTime": "2024-02-20T10:41:38.657Z",
+      "roaming": true,
+      "countryCode": 262,
+      "countryName": [
+        "DE"
+      ]
+    }
+    ```
+
+    ## Error Handling
+    Errors may be returned for the following reasons. Note that this list is not exhaustive.
+
+    `401 UNAUTHENTICATED`:
+    - The access token is not a valid access token for the API provider
+    - The access token was valid but has now expired
+
+    `400 INVALID_ARGUMENT`:
+    - The API request is not compliant with this OAS definition
+
+    `400 OUT_OF_RANGE`:
+    - A parameter value in the API request is outwith the range documented in this OAS definition for that parameter
+
+    `404 IDENTIFIER_NOT_FOUND`:
+    - The device identified by the `device` object in the request is not managed by the API provider
+
+    `403 PERMISSION_DENIED`:
+    - The access token does not have the required scope for the endpoint being called
+    - The end user has not consented to the API consumer getting access to the device identifier information (2-legged access token only)
+
+    `422 SERVICE_NOT_APPLICABLE`:
+    - The roaming status is not applicable to the identified device. For example, the phone number might identify a landline.
+
+    `422 UNSUPPORTED_IDENTIFIER`:
+    - A parameter provided in the `device` object is not supported by this implementation (e.g. `networkAccessIdentifier`)
+
+    `422 MISSING_IDENTIFIER`:\
+    `422 UNNECESSARY_IDENTIFIER`:
+    - See the section "Identifying the device from the access token" below
+
+    `429 QUOTA_EXCEEDED`:
+    - The API consumer has used up the quota of API requests that they were allocated for this API
+
+    `429 TOO_MANY_REQUESTS`:
+    - The rate at which the API consumer is sending requests has exceeded that allowed by the API provider. Try again later.
+
+    `503 UNAVAILABLE`:
+    - The API provider is unable to provide the roaming status for the requested device at this time. Try again later.
 
     <!-- CAMARA:MANDATORY:authorization-and-authentication:BEGIN -->
 
@@ -132,37 +187,21 @@ paths:
         - openId:
             - device-roaming-status:read
       requestBody:
+        description: Request body definition for the getRoamingStatus operation
+        required: true
         content:
           application/json:
             schema:
               $ref: "#/components/schemas/RoamingStatusRequest"
             examples:
-              INPUT_PHONE_NUMBER:
-                summary: Phone number
-                description: Retrieve roaming status for a device identified by a phone number
-                value:
-                  device:
-                    phoneNumber: "+123456789"
-              INPUT_IP_ADDRESS_V4:
-                summary: IPv4 address
-                description: Retrieve roaming status for a device identified by an IPv4 address
-                value:
-                  device:
-                    ipv4Address:
-                      publicAddress: "123.234.1.2"
-                      publicPort: 1234
-              INPUT_IP_ADDRESS_V6:
-                summary: IPv6 address
-                description: Retrieve roaming status for a device identified by an IPv6 address
-                value:
-                  device:
-                    ipv6Address: "2001:db8:85a3:8d3:1319:8a2e:370:7344"
-              INPUT_NO_DEVICE:
-                summary: Device not provided
-                description: The device has to be deducted from token
-                value:
-                  {}
-        required: true
+              Identify Device By 3-Legged Access Token:
+                $ref: '#/components/examples/IdentifyDeviceBy3LeggedToken'
+              Identify Device By Phone Number:
+                $ref: '#/components/examples/IdentifyDeviceByPhoneNumber'
+              Identify Device By IP Address:
+                $ref: '#/components/examples/IdentifyDeviceByIPAddress'
+              Identify Device By Multiple Identifiers:
+                $ref: '#/components/examples/IdentifyDeviceByMultipleIdentifiers'
       responses:
         "200":
           description: Contains information about current roaming status
@@ -325,3 +364,33 @@ components:
       properties:
         device:
           $ref: "../common/CAMARA_common.yaml#/components/schemas/Device"
+
+  examples:
+    IdentifyDeviceBy3LeggedToken:
+      description: Empty JSON when device is identified by access token
+      value:
+        {}
+
+    IdentifyDeviceByPhoneNumber:
+      description: Identifying device by phone number
+      value:
+        device:
+          phoneNumber: "+123456789"
+
+    IdentifyDeviceByIPAddress:
+      description: Identifying device by IP address
+      value:
+        device:
+          ipv4Address:
+            publicAddress: "84.125.93.10"
+            publicPort: 59765
+
+    IdentifyDeviceByMultipleIdentifiers:
+      description: Identifying device by multiple device identifiers
+      value:
+        device:
+          phoneNumber: "+123456789"
+          ipv4Address:
+            publicAddress: "84.125.93.10"
+            publicPort: 59765
+          networkAccessIdentifier: "123456789@example.com"
