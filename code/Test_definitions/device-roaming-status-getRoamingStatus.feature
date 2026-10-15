@@ -52,9 +52,9 @@ Feature: CAMARA Device Roaming Status API, vwip - Operation getRoamingStatus
     And the response property "$.countryName" is not present
     And the response property "$.lastStatusTime" is present and has a valid date-time format for a time in the past
 
-#################
+##########################################################
 # Error scenarios for management of input parameter device
-##################
+##########################################################
 
   @device_roaming_status_C01.01_device_empty
   Scenario: The device value is an empty object
@@ -77,11 +77,11 @@ Feature: CAMARA Device Roaming Status API, vwip - Operation getRoamingStatus
     And the response property "$.message" contains a user friendly text
 
     Examples:
-      | device_identifier          | oas_spec_schema                             |
-      | $.device.phoneNumber       | /components/schemas/PhoneNumber             |
-      | $.device.ipv4Address       | /components/schemas/DeviceIpv4Addr          |
-      | $.device.ipv6Address       | /components/schemas/DeviceIpv6Address       |
-      | $.device.networkIdentifier | /components/schemas/NetworkAccessIdentifier |
+      | device_identifier                | oas_spec_schema                              |
+      | $.device.phoneNumber             | #/components/schemas/PhoneNumber             |
+      | $.device.ipv4Address             | #/components/schemas/DeviceIpv4Address       |
+      | $.device.ipv6Address             | #/components/schemas/DeviceIpv6Address       |
+      | $.device.networkAccessIdentifier | #/components/schemas/NetworkAccessIdentifier |
 
   # This scenario may happen e.g. with 2-legged access tokens, which do not identify a single device.
   @device_roaming_status_C01.03_device_not_found
@@ -140,7 +140,7 @@ Feature: CAMARA Device Roaming Status API, vwip - Operation getRoamingStatus
 # Error code 401
 #################
 
-  @device_roaming_status_401.1_expired_access_token
+  @device_roaming_status_401.01_expired_access_token
   Scenario: Expired access token
     Given the header "Authorization" is set to an expired access token
     And the request body is set to a valid request body
@@ -150,7 +150,7 @@ Feature: CAMARA Device Roaming Status API, vwip - Operation getRoamingStatus
     And the response property "$.code" is "UNAUTHENTICATED"
     And the response property "$.message" contains a user friendly text
 
-  @device_roaming_status_401.2_no_authorization_header
+  @device_roaming_status_401.02_no_authorization_header
   Scenario: No Authorization header
     Given the header "Authorization" is removed
     And the request body is set to a valid request body
@@ -160,7 +160,7 @@ Feature: CAMARA Device Roaming Status API, vwip - Operation getRoamingStatus
     And the response property "$.code" is "UNAUTHENTICATED"
     And the response property "$.message" contains a user friendly text
 
-  @device_roaming_status_401.3_malformed_access_token
+  @device_roaming_status_401.03_malformed_access_token
   Scenario: Malformed access token
     Given the header "Authorization" is set to a malformed token
     And the request body is set to a valid request body
@@ -175,7 +175,7 @@ Feature: CAMARA Device Roaming Status API, vwip - Operation getRoamingStatus
 # Error code 403
 #################
 
-  @device_roaming_status_403_permission_denied
+  @device_roaming_status_403.01_permission_denied
   Scenario: OAuth2 token access does not have the required scope
     Given header "Authorization" set to an access token not including scope "device-roaming-status:read"
     And the request body is set to a valid request body
@@ -186,10 +186,38 @@ Feature: CAMARA Device Roaming Status API, vwip - Operation getRoamingStatus
     And the response property "$.message" contains a user friendly text
 
 #################
+# Error code 429
+#################
+
+  @device_roaming_status_429.01_Too_Many_Requests
+  #To test this scenario environment has to be configured to reject requests reaching the threshold limit set.
+  Scenario: Request is rejected due to threshold policy
+    Given a valid request for "getRoamingStatus"
+    And the header "Authorization" is set to a valid access token
+    And the threshold of requests has been reached
+    When the request "getRoamingStatus" is sent
+    Then the response status code is 429
+    And the response property "$.status" is 429
+    And the response property "$.code" is "TOO_MANY_REQUESTS"
+    And the response property "$.message" contains a user friendly text
+
+  @device_roaming_status_429.02_Quota_Exceeded
+  #To test this scenario environment has to be configured to reject requests reaching the allocated quota.
+  Scenario: Request is rejected due to API consumer quota being reached
+    Given a valid request for "getRoamingStatus"
+    And the header "Authorization" is set to a valid access token
+    And the API consumer allocated quota of requests has been reached
+    When the request "getRoamingStatus" is sent
+    Then the response status code is 429
+    And the response property "$.status" is 429
+    And the response property "$.code" is "QUOTA_EXCEEDED"
+    And the response property "$.message" contains a user friendly text
+
+#################
 # Error code 503
 #################
 
-  @device_roaming_status_503_network_error
+  @device_roaming_status_503.01_network_error
   Scenario: Network error temporarily prevents the device roaming status from being retrieved
     # This test is for use by the API provider only
     Given a valid testing device supported by the service, identified by the token or provided in the request body

@@ -193,10 +193,4 @@ Feature: Device Roaming Status Subscriptions API, vwip - Operation retrieveDevic
 # Error code 403
 ##################
 
-##################
-# Error code 404
-##################
-
-##################
-# Error code 422
-##################
+# No test scenarios yet defined
