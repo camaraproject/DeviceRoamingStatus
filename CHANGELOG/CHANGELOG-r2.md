@@ -111,7 +111,7 @@ Changes documented below are compared to version 0.9.0-rc.1.
 ### Removed
 
 * [Added / Changed / Removed] Updates for Commonalities r4.4 by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/102
-  * Remove error code 400 OUT_OF_RANGE dor device-roaming-status-subscriptions subscription listing
+  * Remove error code 400 OUT_OF_RANGE for device-roaming-status-subscriptions subscription listing
 
 ## device-roaming-status 1.2.0-rc.4
 
