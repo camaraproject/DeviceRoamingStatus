@@ -43,11 +43,11 @@ Incubating API Repository to evolve and maintain the definitions and documentati
 
 ### Upcoming Release Preview
 
-* Pre-release: [r2.1](https://github.com/camaraproject/DeviceRoamingStatus/releases/tag/r2.1) (release candidate)
-  * **device-roaming-status-subscriptions 0.9.0-rc.1**
-  [[YAML]](https://github.com/camaraproject/DeviceRoamingStatus/blob/r2.1/code/API_definitions/device-roaming-status-subscriptions.yaml)  [[ReDoc]](https://redocly.github.io/redoc/?url=https://raw.githubusercontent.com/camaraproject/DeviceRoamingStatus/r2.1/code/API_definitions/device-roaming-status-subscriptions.yaml&nocors)  [[Swagger]](https://camaraproject.github.io/swagger-ui/?url=https://raw.githubusercontent.com/camaraproject/DeviceRoamingStatus/r2.1/code/API_definitions/device-roaming-status-subscriptions.yaml)
-  * **device-roaming-status 1.2.0-rc.3**
-  [[YAML]](https://github.com/camaraproject/DeviceRoamingStatus/blob/r2.1/code/API_definitions/device-roaming-status.yaml)  [[ReDoc]](https://redocly.github.io/redoc/?url=https://raw.githubusercontent.com/camaraproject/DeviceRoamingStatus/r2.1/code/API_definitions/device-roaming-status.yaml&nocors)  [[Swagger]](https://camaraproject.github.io/swagger-ui/?url=https://raw.githubusercontent.com/camaraproject/DeviceRoamingStatus/r2.1/code/API_definitions/device-roaming-status.yaml)
+* Pre-release: [r2.2](https://github.com/camaraproject/DeviceRoamingStatus/releases/tag/r2.2) (release candidate)
+  * **device-roaming-status-subscriptions 0.9.0-rc.2**
+  [[YAML]](https://github.com/camaraproject/DeviceRoamingStatus/blob/r2.2/code/API_definitions/device-roaming-status-subscriptions.yaml)  [[ReDoc]](https://redocly.github.io/redoc/?url=https://raw.githubusercontent.com/camaraproject/DeviceRoamingStatus/r2.2/code/API_definitions/device-roaming-status-subscriptions.yaml&nocors)  [[Swagger]](https://camaraproject.github.io/swagger-ui/?url=https://raw.githubusercontent.com/camaraproject/DeviceRoamingStatus/r2.2/code/API_definitions/device-roaming-status-subscriptions.yaml)
+  * **device-roaming-status 1.2.0-rc.4**
+  [[YAML]](https://github.com/camaraproject/DeviceRoamingStatus/blob/r2.2/code/API_definitions/device-roaming-status.yaml)  [[ReDoc]](https://redocly.github.io/redoc/?url=https://raw.githubusercontent.com/camaraproject/DeviceRoamingStatus/r2.2/code/API_definitions/device-roaming-status.yaml&nocors)  [[Swagger]](https://camaraproject.github.io/swagger-ui/?url=https://raw.githubusercontent.com/camaraproject/DeviceRoamingStatus/r2.2/code/API_definitions/device-roaming-status.yaml)
 
 
 _The above section is automatically synchronized by CAMARA project-administration._
