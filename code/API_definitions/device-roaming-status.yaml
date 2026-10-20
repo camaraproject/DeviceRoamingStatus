@@ -65,9 +65,6 @@ info:
     `400 INVALID_ARGUMENT`:
     - The API request is not compliant with this OAS definition
 
-    `400 OUT_OF_RANGE`:
-    - A parameter value in the API request is outwith the range documented in this OAS definition for that parameter
-
     `404 IDENTIFIER_NOT_FOUND`:
     - The device identified by the `device` object in the request is not managed by the API provider
 
@@ -251,7 +248,7 @@ paths:
                     countryCode: 262
                     countryName: ["DE"]
         "400":
-          $ref: "../common/CAMARA_common.yaml#/components/responses/BadRequestWithRange400"
+          $ref: "../common/CAMARA_common.yaml#/components/responses/BadRequest400"
         "401":
           $ref: "../common/CAMARA_common.yaml#/components/responses/Unauthenticated401"
         "403":
