@@ -96,7 +96,17 @@ Feature: Device Roaming Status Subscriptions API, vwip - Operation createDeviceR
       | org.camaraproject.device-roaming-status-subscriptions.v0.roaming-off                    |
       | org.camaraproject.device-roaming-status-subscriptions.v0.roaming-change-country         |
 
-  @roaming_status_subscriptions_03_receive_notification_when_roaming_status_changed_to_on
+  @roaming_status_subscriptions_03_subscription_creation_event_validation
+  Scenario: Receive notification for subscription-started event on creation
+    Given a valid subscription request body
+    When the request "createDeviceRoamingStatusSubscription" is sent
+    Then the response code is 201 or 202
+    And event notification "subscription-started" is received on callback-url
+    And notification body complies with the OAS schema at "#/components/schemas/EventSubscriptionStarted"
+    And type="org.camaraproject.device-roaming-status-subscriptions.v0.subscription-started"
+    And the response property "$.initiationReason" is "SUBSCRIPTION_CREATED"
+
+  @roaming_status_subscriptions_04_receive_notification_when_roaming_status_changed_to_on
   Scenario: Receive notification for roaming-on event
     Given a valid subscription for that device exists with "subscriptionId" equal to "id"
     And the subscription property "$.types" contains the element "org.camaraproject.device-roaming-status-subscriptions.v0.roaming-on"
@@ -109,7 +119,7 @@ Feature: Device Roaming Status Subscriptions API, vwip - Operation createDeviceR
     And the notification property "$.type" is equal to "org.camaraproject.device-roaming-status-subscriptions.v0.roaming-on"
     And the notification property "$.data.subscriptionId" is equal to "id"
 
-  @roaming_status_subscriptions_04_receive_notification_when_roaming_status_changed_to_off
+  @roaming_status_subscriptions_05_receive_notification_when_roaming_status_changed_to_off
   Scenario: Receive notification for roaming-off event
     Given a valid subscription for that device exists with "subscriptionId" equal to "id"
     And the subscription property "$.types" contains the element "org.camaraproject.device-roaming-status-subscriptions.v0.roaming-off"
@@ -122,7 +132,7 @@ Feature: Device Roaming Status Subscriptions API, vwip - Operation createDeviceR
     And the notification property "$.type" is equal to "org.camaraproject.device-roaming-status-subscriptions.v0.roaming-off"
     And the notification property "$.data.subscriptionId" is equal to "id"
 
-  @roaming_status_subscriptions_05_receive_notification_when_roaming_status_changed
+  @roaming_status_subscriptions_06_receive_notification_when_roaming_status_changed
   Scenario: Receive notification for roaming-status changes
     Given a valid subscription for that device exists with "subscriptionId" equal to "id"
     And the subscription property "$.types" contains the element "org.camaraproject.device-roaming-status-subscriptions.v0.roaming-status"
@@ -134,7 +144,7 @@ Feature: Device Roaming Status Subscriptions API, vwip - Operation createDeviceR
     And the notification property "$.type" is equal to "org.camaraproject.device-roaming-status-subscriptions.v0.roaming-status"
     And the notification property "$.data.subscriptionId" is equal to "id"
 
-  @roaming_status_subscriptions_06_receive_notification_when_roaming_change_country
+  @roaming_status_subscriptions_07_receive_notification_when_roaming_change_country
   Scenario: Receive notification for roaming-change-country
     Given a valid subscription for that device exists with "subscriptionId" equal to "id"
     And the subscription property "$.types" contains the element "org.camaraproject.device-roaming-status-subscriptions.v0.roaming-change-country"
@@ -149,7 +159,7 @@ Feature: Device Roaming Status Subscriptions API, vwip - Operation createDeviceR
     And the notification property "$.data.countryCode" is present and equal to a valid country code
     And the notification property "$.data.countryName" is present and includes a list of all countries corresponding to the country code
 
-  @roaming_status_subscriptions_07_subscription_expiry
+  @roaming_status_subscriptions_08_subscription_expiry
   Scenario: Receive notification for subscription-ended event on expiry
     Given a valid subscription for a device exists with "subscriptionId" equal to "id"
     And the subscription property "$.config.subscriptionExpireTime" is set to a value in the near future
@@ -161,7 +171,7 @@ Feature: Device Roaming Status Subscriptions API, vwip - Operation createDeviceR
     And the notification property "$.data.subscriptionId" is equal to "id"
     And the notification property "$.data.terminationReason" is equal to "SUBSCRIPTION_EXPIRED"
 
-  @roaming_status_subscriptions_08_subscription_end_when_max_events
+  @roaming_status_subscriptions_09_subscription_end_when_max_events
   Scenario: Receive notification for subscription-ended event on max events reached
     Given a valid subscription for a device exists with "subscriptionId" equal to "id"
     And the subscription property "$.config.subscriptionMaxEvents" is set to 1
@@ -173,7 +183,7 @@ Feature: Device Roaming Status Subscriptions API, vwip - Operation createDeviceR
     And the notification property "$.data.subscriptionId" is equal to "id"
     And the notification request property "$.data.terminationReason" is equal to "MAX_EVENTS_REACHED"
 
-  @roaming_status_subscriptions_09_subscription_creation_initial_event
+  @roaming_status_subscriptions_10_subscription_creation_initial_event
   Scenario: Receive initial event notification on creation
     Given the API supports initial events to be sent
     And a valid subscription request body with property "$.config.initialEvent" set to true
@@ -182,7 +192,7 @@ Feature: Device Roaming Status Subscriptions API, vwip - Operation createDeviceR
     And an event notification of the subscribed type is received on callback-url
     And notification body complies with the OAS schema at "#/components/schemas/CloudEvent"
 
-  @roaming_status_subscriptions_10_create_roaming_status_subscription_sync_with_accesstoken_sink_credential
+  @roaming_status_subscriptions_11_create_roaming_status_subscription_sync_with_accesstoken_sink_credential
   Scenario: Create roaming status subscription (sync creation) with ACCESSTOKEN sinkCredential
   # Some implementations may only support asynchronous subscription creation
   # Some implementations may decide to not return the sinkCredential in the response (data minimization principle)
@@ -200,26 +210,26 @@ Feature: Device Roaming Status Subscriptions API, vwip - Operation createDeviceR
     And the response body property "$.sinkCredential.credentialType", if present, is set to value "ACCESSTOKEN"
     And the response body property "$.sinkCredential.accessTokenExpiresUtc", if present, is set to the same value of the request property "$.sinkCredential.accessTokenExpiresUtc"
 
-  @roaming_status_subscriptions_11_create_roaming_status_subscription_sync_with_private_jwt_key_sink_credential_out_of_band_provisioning
-  Scenario: Create roaming status subscription (sync creation) with PRIVATE_JWT_KEY sinkCredential, out-of-band provisioning
+  @roaming_status_subscriptions_12_create_roaming_status_subscription_sync_with_private_key_jwt_sink_credential_out_of_band_provisioning
+  Scenario: Create roaming status subscription (sync creation) with PRIVATE_KEY_JWT sinkCredential, out-of-band provisioning
   # Some implementations may only support asynchronous subscription creation
   # Some implementations may only support out_of_band provisioning
     Given that subscriptions are created synchronously
     And a valid subscription request body
-    And the request property "$.sinkCredential.credentialType" is set to "PRIVATE_JWT_KEY"
+    And the request property "$.sinkCredential.credentialType" is set to "PRIVATE_KEY_JWT"
     When the request "createDeviceRoamingStatusSubscription" is sent
     Then the response code is 201
     And the response header "Content-Type" is "application/json"
     And the response header "x-correlator" has the same value as the request header "x-correlator"
     And the response body complies with the OAS schema at "#/components/schemas/Subscription"
 
-  @roaming_status_subscriptions_12_create_roaming_status_subscription_sync_with_private_jwt_key_sink_credential_in_band_provisioning
-  Scenario: Create roaming status subscription (sync creation) with PRIVATE_JWT_KEY sinkCredential, in-band provisioning
+  @roaming_status_subscriptions_13_create_roaming_status_subscription_sync_with_private_key_jwt_sink_credential_in_band_provisioning
+  Scenario: Create roaming status subscription (sync creation) with PRIVATE_KEY_JWT sinkCredential, in-band provisioning
   # Some implementations may only support asynchronous subscription creation
   # Some implementations may additionally support in_band provisioning
     Given that subscriptions are created synchronously
     And a valid subscription request body
-    And the request property "$.sinkCredential.credentialType" is set to "PRIVATE_JWT_KEY"
+    And the request property "$.sinkCredential.credentialType" is set to "PRIVATE_KEY_JWT"
     And the request property "$.sinkCredential.clientId" is set to a valid value
     And the request property "$.sinkCredential.tokenUri" is set to a valid value
     When the request "createDeviceRoamingStatusSubscription" is sent
@@ -227,7 +237,7 @@ Feature: Device Roaming Status Subscriptions API, vwip - Operation createDeviceR
     And the response header "Content-Type" is "application/json"
     And the response header "x-correlator" has the same value as the request header "x-correlator"
     And the response body complies with the OAS schema at "#/components/schemas/Subscription"
-    And the response body property "$.sinkCredential.credentialType" is set to value "PRIVATE_JWT_KEY"
+    And the response body property "$.sinkCredential.credentialType" is set to value "PRIVATE_KEY_JWT"
     And the response body property "$.sinkCredential.jwksUri" is set to a valid value
 
 ##########################################################
@@ -501,10 +511,10 @@ Feature: Device Roaming Status Subscriptions API, vwip - Operation createDeviceR
     And the response property "$.code" is "MULTIEVENT_SUBSCRIPTION_NOT_SUPPORTED"
     And the response property "$.message" contains a user friendly text
 
-  @roaming_status_subscriptions_422.02_creation_with_private_jwt_key_not_configured
-  Scenario: Private JWT Key not configured for subscription creation
-    Given the API provider requires the use of a Private JWT key mechanism for subscription creation authentication
-    And the Private JWT key mechanism is not pre-configured in the environment
+  @roaming_status_subscriptions_422.02_creation_with_private_key_jwt_not_configured
+  Scenario: Private key JWT not configured for subscription creation
+    Given the API provider requires the use of a private key JWT mechanism for subscription creation authentication
+    And the private key JWT mechanism is not pre-configured in the environment
     And a valid subscription request body with the property "$.sinkCredential.credentialType" set to "PRIVATE_KEY_JWT"
     When the request "createDeviceRoamingStatusSubscription" is sent
     Then the response code is 422
