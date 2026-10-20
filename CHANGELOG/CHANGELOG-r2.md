@@ -110,6 +110,9 @@ Changes documented below are compared to version 0.9.0-rc.1.
 
 * [Added / Changed / Removed] Updates for Commonalities r4.4 by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/102
   * Remove error code 400 OUT_OF_RANGE for device-roaming-status-subscriptions subscription listing
+  * Remove error codes 409 CONFLICT and INCOMPATIBLE_STATE for device-roaming-status-subscriptions subscription creation
+  * Remove error code 403 INVALID_TOKEN_CONTEXT for all device-roaming-status-subscriptions operations
+  * Remove error code 404 IDENTIFIER_NOT_FOUND for device-roaming-status-subscriptions subscription retrieval and deletion (404 NOT_FOUND remains)
 
 ## device-roaming-status 1.2.0-rc.4
 
