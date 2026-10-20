@@ -73,7 +73,6 @@ Changes documented below are compared to version 0.9.0-rc.1.
   * Update error response schema to use new common schema or locally defined schema
     * Add 422 MULTIEVENT_SUBSCRIPTION_NOT_SUPPORTED, MULTIEVENT_COMBINATION_TEMPORARILY_NOT_SUPPORTED and PRIVATE_KEY_JWT_NOT_CONFIGURED for device-roaming-status-subscriptions subscription creation
     * Add 404 IDENTIFIER_NOT_FOUND for device-roaming-status-subscriptions subscription creation
-  - Rename device-roaming-status.feature to device-roaming-status-getRoamingStatus.feature
   - Add new test scenarios
     - @roaming_status_subscriptions_09_subscription_creation_initial_event
     - @roaming_status_subscriptions_10_Create_roaming_status_subscription_sync_with_accesstoken_sink_credential
