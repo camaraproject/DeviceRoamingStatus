@@ -71,7 +71,6 @@ Changes documented below are compared to version 0.9.0-rc.1.
 
 * [Added / Changed / Removed] Updates for Commonalities r4.4 by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/102
   * Update error response schema to use new common schema or locally defined schema
-    * Add 422 MULTIEVENT_SUBSCRIPTION_NOT_SUPPORTED, MULTIEVENT_COMBINATION_TEMPORARILY_NOT_SUPPORTED and PRIVATE_KEY_JWT_NOT_CONFIGURED for device-roaming-status-subscriptions subscription creation
     * Add 404 IDENTIFIER_NOT_FOUND for device-roaming-status-subscriptions subscription creation
   - Add new test scenarios
     - @roaming_status_subscriptions_09_subscription_creation_initial_event
