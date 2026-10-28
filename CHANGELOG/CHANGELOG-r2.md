@@ -111,8 +111,6 @@ Changes documented below are compared to version 0.9.0-rc.1.
 
 * [Fixed] Correct info.description documentation regarding identified device notification by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/90
 * [Updated] Update tests scenarios for subscriptions by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/109
-  * Fix typo PRIVATE_JWT_KEY to PRIVATE_KEY_JWT in device-roaming-status-subscriptions-createDeviceRoamingStatusSubscription.feature and device-roaming-status-subscriptions-retrieveDeviceRoamingStatusSubscription.feature
-
 ### Removed
 
 * [Added / Changed / Removed] Updates for Commonalities r4.4 by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/102
