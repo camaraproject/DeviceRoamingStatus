@@ -110,7 +110,7 @@ Changes documented below are compared to version 0.9.0-rc.1.
 ### Fixed
 
 * [Fixed] Correct info.description documentation regarding identified device notification by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/90
-* [Updated] Update tests scenarios for subscriptions by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/109
+
 ### Removed
 
 * [Added / Changed / Removed] Updates for Commonalities r4.4 by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/102
