@@ -75,13 +75,13 @@ Changes documented below are compared to version 0.9.0-rc.1.
   * Update error response schema to use new common schema or locally defined schema
     * Add 404 IDENTIFIER_NOT_FOUND for device-roaming-status-subscriptions subscription creation
   - Add new test scenarios
-    - @roaming_status_subscriptions_09_subscription_creation_initial_event
-    - @roaming_status_subscriptions_10_create_roaming_status_subscription_sync_with_accesstoken_sink_credential
-    - @roaming_status_subscriptions_11_create_roaming_status_subscription_sync_with_private_jwt_key_sink_credential_out_of_band_provisioning
-    - @roaming_status_subscriptions_12_create_roaming_status_subscription_sync_with_private_jwt_key_sink_credential_in_band_provisioning
-    - @roaming_status_subscriptions_422.02_creation_with_private_jwt_key_not_configured
+    - @roaming_status_subscriptions_10_subscription_creation_initial_event
+    - @roaming_status_subscriptions_11_create_roaming_status_subscription_sync_with_accesstoken_sink_credential
+    - @roaming_status_subscriptions_12_create_roaming_status_subscription_sync_with_private_key_jwt_sink_credential_out_of_band_provisioning
+    - @roaming_status_subscriptions_13_create_roaming_status_subscription_sync_with_private_key_jwt_sink_credential_in_band_provisioning
+    - @roaming_status_subscriptions_422.02_creation_with_private_key_jwt_not_configured
     - @roaming_status_subscriptions_03_Operation_to_retrieve_subscription_based_on_an_existing_subscription-id_access_token_sink_credential_returned
-    - @roaming_status_subscriptions_04_Operation_to_retrieve_subscription_based_on_an_existing_subscription-id_private_jwt_key_sink_credential_returned
+    - @roaming_status_subscriptions_04_Operation_to_retrieve_subscription_based_on_an_existing_subscription-id_private_key_jwt_sink_credential_returned
 * [Added] Update device roaming status subscription list scenarios by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/97
   - Add new test scenarios or rename existing scenarios
     - @roaming_status_subscriptions_01_operation_to_retrieve_list_of_subscriptions_2legs
