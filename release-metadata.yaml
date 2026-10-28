@@ -2,7 +2,7 @@ repository:
   repository_name: DeviceRoamingStatus
   release_tag: r2.2
   release_type: pre-release-rc
-  release_date: null
+  release_date: '2026-10-28T13:53:51Z'
   src_commit_sha: 25ae41f591a808ecbac49172402e7cb38db6653c
 apis:
 - api_name: device-roaming-status-subscriptions
