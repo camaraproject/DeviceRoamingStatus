@@ -103,8 +103,9 @@ Feature: Device Roaming Status Subscriptions API, vwip - Operation createDeviceR
     Then the response code is 201 or 202
     And event notification "subscription-started" is received on callback-url
     And notification body complies with the OAS schema at "#/components/schemas/EventSubscriptionStarted"
-    And type="org.camaraproject.device-roaming-status-subscriptions.v0.subscription-started"
-    And the response property "$.initiationReason" is "SUBSCRIPTION_CREATED"
+    And the notification property "$.type" is equal to "org.camaraproject.device-roaming-status-subscriptions.v0.subscription-started"
+    And the notification property "$.data.subscriptionId" is equal to response property "$.id"
+    And the notification property "$.data.initiationReason" is equal to "SUBSCRIPTION_CREATED"
 
   @roaming_status_subscriptions_04_receive_notification_when_roaming_status_changed_to_on
   Scenario: Receive notification for roaming-on event
