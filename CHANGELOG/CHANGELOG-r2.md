@@ -88,23 +88,70 @@ Changes documented below are compared to version 0.8.0.
 
 ### Breaking changes
 
-* N/A
+- Pagination for listing of subscriptions using GET /subscriptions is now supported in https://github.com/camaraproject/DeviceRoamingStatus/pull/78
+  -  Addition of `page` and `perPage` query parameters to control pagination
+  -  Returned subscriptions are now embedded in the array `subscriptions` within the response JSON, with the page tracked within the `pagination` JSON
+  -  Addition of response headers `X-Total-Count`, `X-Total-Pages` and `Link` to facilitate page navigation
+* Property subscriptionDetail is now a required subscription creation parameter in https://github.com/camaraproject/DeviceRoamingStatus/pull/102
+* Response code 404 IDENTIFIER_NOT_FOUND added for subscription creation in https://github.com/camaraproject/DeviceRoamingStatus/pull/102
 
 ### Added
 
-* N/A
+* [Added / Changed / Removed] Updates for Commonalities r4.4 by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/102
+  * Update error response schema to use new common schema or locally defined schema
+    * Add 404 IDENTIFIER_NOT_FOUND for device-roaming-status-subscriptions subscription creation
+  - Add new test scenarios
+    - @roaming_status_subscriptions_10_subscription_creation_initial_event
+    - @roaming_status_subscriptions_11_create_roaming_status_subscription_sync_with_accesstoken_sink_credential
+    - @roaming_status_subscriptions_12_create_roaming_status_subscription_sync_with_private_key_jwt_sink_credential_out_of_band_provisioning
+    - @roaming_status_subscriptions_13_create_roaming_status_subscription_sync_with_private_key_jwt_sink_credential_in_band_provisioning
+    - @roaming_status_subscriptions_422.02_creation_with_private_key_jwt_not_configured
+    - @roaming_status_subscriptions_03_Operation_to_retrieve_subscription_based_on_an_existing_subscription-id_access_token_sink_credential_returned
+    - @roaming_status_subscriptions_04_Operation_to_retrieve_subscription_based_on_an_existing_subscription-id_private_key_jwt_sink_credential_returned
+* [Added] Update device roaming status subscription list scenarios by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/97
+  - Add new test scenarios or rename existing scenarios
+    - @roaming_status_subscriptions_01_operation_to_retrieve_list_of_subscriptions_2legs
+    - @roaming_status_subscriptions_02_operation_to_retrieve_list_of_subscriptions_3legs
+    - @roaming_status_subscriptions_03_operation_to_retrieve_list_of_subscriptions_when_no_records
+    - @roaming_status_subscriptions_04_pagination_default_values
+    - @roaming_status_subscriptions_05_pagination_custom_values
+    - @roaming_status_subscriptions_06_pagination_middle_page
+    - @roaming_status_subscriptions_07_pagination_last_page
+    - @roaming_status_subscriptions_retrieve_list_400.01_pagination_invalid_page_parameter
+    - @roaming_status_subscriptions_retrieve_list_400.02_pagination_invalid_perPage_parameter
+* [Updated] Update tests scenarios for subscriptions by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/109
+  * Add scenario @roaming_status_subscriptions_03_subscription_creation_event_validation
+* Add examples for roaming status retrieval by @bigludo7 in https://github.com/camaraproject/DeviceRoamingStatus/pull/53
 
 ### Changed
 
-* N/A
+* [Added / Changed / Removed] Updates for Commonalities r4.4 by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/102
+  - Renumber some test scenarios
+  - Property subscriptionDetail is now a required subscription creation parameter
+  - Update examples
+* [Changed] Refactor subscription schemas for Commonalities r4.4 and add initialEvent by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/101
+* [Changed] Documentation update for improved clarity by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/96
+* [Updated] Update tests scenarios for subscriptions by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/109
+  * Renumber some test scenarios
+* Update API definitions to fix CAMARA validation warnings and hints by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/78
+  - Pagination for listing of subscriptions using GET /subscriptions is now supported
+    -  Addition of `page` and `perPage` query parameters to control pagination
+    -  Returned subscriptions are now embedded in the array `subscriptions` within the response JSON, with the page tracked within the `pagination` JSON
+    -  Addition of response headers `X-Total-Count`, `X-Total-Pages` and `Link` to facilitate page navigation
 
 ### Fixed
 
-* N/A
+* [Fixed] Correct info.description documentation regarding identified device notification by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/90
+* fix: declare CloudEvent schema type by @hdamker in https://github.com/camaraproject/DeviceRoamingStatus/pull/77
+* Fix example for Network Access Identifier by @bigludo7 in https://github.com/camaraproject/DeviceRoamingStatus/pull/58
 
 ### Removed
 
-* N/A
+* [Added / Changed / Removed] Updates for Commonalities r4.4 by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/102
+  * Remove error code 400 OUT_OF_RANGE for device-roaming-status-subscriptions subscription listing
+  * Remove error codes 409 CONFLICT and INCOMPATIBLE_STATE for device-roaming-status-subscriptions subscription creation
+  * Remove error code 403 INVALID_TOKEN_CONTEXT for all device-roaming-status-subscriptions operations
+  * Remove error code 404 IDENTIFIER_NOT_FOUND for device-roaming-status-subscriptions subscription retrieval and deletion (404 NOT_FOUND remains)
 
 ## device-roaming-status 1.2.0
 
@@ -123,19 +170,33 @@ Changes documented below are compared to version 1.1.0.
 
 ### Added
 
-* N/A
+* [Added / Changed / Removed] Updates for Commonalities r4.4 by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/102
+  - Add new test scenarios
+    - @device_roaming_status_429.01_Too_Many_Requests
+    - @device_roaming_status_429.02_Quota_Exceeded
 
 ### Changed
 
-* N/A
+* [Added / Changed / Removed] Updates for Commonalities r4.4 by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/102
+  - Rename device-roaming-status.feature to device-roaming-status-getRoamingStatus.feature
+  - Renumber some test scenarios
+  - Update examples
+* [Changed] Documentation update for improved clarity by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/96
+* Clarify LastStatusTime schema description in YAML by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/56
+* Update API definitions to fix CAMARA validation warnings and hints by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/78
 
 ### Fixed
 
-* N/A
+* Fix example label: Multiple Country Codes → Multiple Country Names by @sachinvodafone in https://github.com/camaraproject/DeviceRoamingStatus/pull/54
+* Fix example for Network Access Identifier by @bigludo7 in https://github.com/camaraproject/DeviceRoamingStatus/pull/58
 
 ### Removed
 
-* N/A
+* [Added / Changed / Removed] Updates for Commonalities r4.4 by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/102
+  - Update error response schema to use new common schema or locally defined schema
+    - Remove 403 INVALID_TOKEN_CONTEXT and 404 NOT_FOUND as a valid error response code for device-roaming-status
+* [Removed] Remove the OUT_OF_RANGE error response by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/110
+  * Remove 400 OUT_OF_RANGE as a valid error response code for device-roaming-status
 
 **Full Changelog**: https://github.com/camaraproject/DeviceRoamingStatus/compare/r1.2...r2.3
 
