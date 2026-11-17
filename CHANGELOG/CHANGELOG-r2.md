@@ -173,6 +173,7 @@ Changes documented below are compared to version 1.1.0.
   - Add new test scenarios
     - @device_roaming_status_429.01_Too_Many_Requests
     - @device_roaming_status_429.02_Quota_Exceeded
+* Add examples for roaming status retrieval by @bigludo7 in https://github.com/camaraproject/DeviceRoamingStatus/pull/53
 
 ### Changed
 
