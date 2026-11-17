@@ -145,6 +145,7 @@ Changes documented below are compared to version 0.8.0.
 
 * [Fixed] Correct info.description documentation regarding identified device notification by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/90
 * Fix example for Network Access Identifier by @bigludo7 in https://github.com/camaraproject/DeviceRoamingStatus/pull/58
+* The data of `subscription-ended` events no longer declares the undefined property `countryCode` as required by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/78
 
 ### Removed
 
