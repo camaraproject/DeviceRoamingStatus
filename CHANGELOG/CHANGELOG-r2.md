@@ -135,6 +135,7 @@ Changes documented below are compared to version 0.8.0.
   * Renumbered some test scenarios
   * Updated examples
 * [Changed] Documentation update for improved clarity by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/96
+  * Clarified that `roaming-change-country` events are sent when the device remains roaming and the country name changes
 * [Updated] Update tests scenarios for subscriptions by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/109
   * Renumber some test scenarios
 * Update API definitions to fix CAMARA validation warnings and hints by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/78
