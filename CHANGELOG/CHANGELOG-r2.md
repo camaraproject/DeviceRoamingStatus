@@ -140,11 +140,6 @@ Changes documented below are compared to version 0.8.0.
   * Clarified that `roaming-change-country` events are sent when the device remains roaming and the country name changes
 * [Updated] Update tests scenarios for subscriptions by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/109
   * Renumber some test scenarios
-* Update API definitions to fix CAMARA validation warnings and hints by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/78
-  - Pagination for listing of subscriptions using GET /subscriptions is now supported
-    -  Addition of `page` and `perPage` query parameters to control pagination
-    -  Returned subscriptions are now embedded in the array `subscriptions` within the response JSON, with the page tracked within the `pagination` JSON
-    -  Addition of response headers `X-Total-Count`, `X-Total-Pages` and `Link` to facilitate page navigation
 
 ### Fixed
 
