@@ -97,9 +97,9 @@ Changes documented below are compared to version 0.8.0.
 
 ### Added
 
-* [Added / Changed / Removed] Updates for Commonalities r4.4 by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/102
-  * Update error response schema to use new common schema or locally defined schema
-    * Add 404 IDENTIFIER_NOT_FOUND for device-roaming-status-subscriptions subscription creation
+* Aligned with CAMARA Commonalities r4.4 (0.9.0) by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/78 and https://github.com/camaraproject/DeviceRoamingStatus/pull/102
+  - Added support for sink credential type `PRIVATE_KEY_JWT` for notification delivery, with the 422 `PRIVATE_KEY_JWT_NOT_CONFIGURED` error on subscription creation; `sinkCredential` can be returned in subscription responses
+  - Subscription creation declares the additional error codes 404 `IDENTIFIER_NOT_FOUND` (see Breaking changes) and 422 `MULTIEVENT_COMBINATION_TEMPORARILY_NOT_SUPPORTED`
   - Add new test scenarios
     - @roaming_status_subscriptions_10_subscription_creation_initial_event
     - @roaming_status_subscriptions_11_create_roaming_status_subscription_sync_with_accesstoken_sink_credential
