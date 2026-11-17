@@ -187,7 +187,6 @@ Changes documented below are compared to version 1.1.0.
 * [Changed] Documentation update for improved clarity by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/96
   * Defined roaming for this API: the device is connected to a mobile network whose mobile country code (MCC) belongs to another country than that of its home network; connecting to another network of the home country is not roaming
 * Clarify LastStatusTime schema description in YAML by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/56
-* Update API definitions to fix CAMARA validation warnings and hints by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/78
 
 ### Fixed
 
