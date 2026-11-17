@@ -100,7 +100,7 @@ Changes documented below are compared to version 0.8.0.
 * Aligned with CAMARA Commonalities r4.4 (0.9.0) by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/78 and https://github.com/camaraproject/DeviceRoamingStatus/pull/102
   - Added support for sink credential type `PRIVATE_KEY_JWT` for notification delivery, with the 422 `PRIVATE_KEY_JWT_NOT_CONFIGURED` error on subscription creation; `sinkCredential` can be returned in subscription responses
   - Subscription creation declares the additional error codes 404 `IDENTIFIER_NOT_FOUND` (see Breaking changes) and 422 `MULTIEVENT_COMBINATION_TEMPORARILY_NOT_SUPPORTED`
-  - Add new test scenarios
+  - Added new test scenarios
     - @roaming_status_subscriptions_10_subscription_creation_initial_event
     - @roaming_status_subscriptions_11_create_roaming_status_subscription_sync_with_accesstoken_sink_credential
     - @roaming_status_subscriptions_12_create_roaming_status_subscription_sync_with_private_key_jwt_sink_credential_out_of_band_provisioning
@@ -108,8 +108,8 @@ Changes documented below are compared to version 0.8.0.
     - @roaming_status_subscriptions_422.02_creation_with_private_key_jwt_not_configured
     - @roaming_status_subscriptions_03_Operation_to_retrieve_subscription_based_on_an_existing_subscription-id_access_token_sink_credential_returned
     - @roaming_status_subscriptions_04_Operation_to_retrieve_subscription_based_on_an_existing_subscription-id_private_key_jwt_sink_credential_returned
-* [Added] Update device roaming status subscription list scenarios by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/97
-  - Add new test scenarios or rename existing scenarios
+* Updated device roaming status subscription list scenarios by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/97
+  - Added new test scenarios or rename existing scenarios
     - @roaming_status_subscriptions_01_operation_to_retrieve_list_of_subscriptions_2legs
     - @roaming_status_subscriptions_02_operation_to_retrieve_list_of_subscriptions_3legs
     - @roaming_status_subscriptions_03_operation_to_retrieve_list_of_subscriptions_when_no_records
@@ -119,8 +119,8 @@ Changes documented below are compared to version 0.8.0.
     - @roaming_status_subscriptions_07_pagination_last_page
     - @roaming_status_subscriptions_retrieve_list_400.01_pagination_invalid_page_parameter
     - @roaming_status_subscriptions_retrieve_list_400.02_pagination_invalid_perPage_parameter
-* [Updated] Update tests scenarios for subscriptions by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/109 and https://github.com/camaraproject/DeviceRoamingStatus/pull/119
-  * Add scenario @roaming_status_subscriptions_03_subscription_creation_event_validation
+* Updated tests scenarios for subscriptions by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/109 and https://github.com/camaraproject/DeviceRoamingStatus/pull/119
+  * Added scenario @roaming_status_subscriptions_03_subscription_creation_event_validation
 
 ### Changed
 
@@ -129,22 +129,25 @@ Changes documented below are compared to version 0.8.0.
     * Addition of `page` and `perPage` query parameters to control pagination
     * Returned subscriptions are now embedded in the array `subscriptions` within the response JSON, with the page tracked within the `pagination` JSON
     * Addition of response headers `X-Total-Count`, `X-Total-Pages` and `Link` to facilitate page navigation
-  * Request inputs carry explicit length and range limits, e.g. `x-correlator` (256 characters); `subscriptionMaxEvents` is at most 1000000; `device.ipv4Address.publicPort` must be at least 1 (`0` was allowed before but is not a usable port)
+  * Request inputs carry explicit length and range limits, e.g.:
+    * `x-correlator` (256 characters);
+    * `subscriptionMaxEvents` is at most 1000000;
+    * `device.ipv4Address.publicPort` must be at least 1 (`0` was allowed before but is not a usable port)
   * `countryCode` in notifications is limited to 100–999 and `countryName` to at most 5 two-letter country codes
   * Added the info.description section on request body strictness: requests with undeclared properties are rejected with `400 INVALID_ARGUMENT`
   * Renumbered some test scenarios
   * Updated examples
-* [Changed] Documentation update for improved clarity by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/96
+* Documentation updated for improved clarity by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/96
   * Defined roaming for this API: the device is connected to a mobile network whose mobile country code (MCC) belongs to another country than that of its home network; connecting to another network of the home country is not roaming
   * Clarified that `roaming-change-country` events are sent when the device remains roaming and the country name changes
   * Clarified that `roaming-change-country` events are sent when the device remains roaming and the country name changes
-* [Updated] Update tests scenarios for subscriptions by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/109
-  * Renumber some test scenarios
+* Updated tests scenarios for subscriptions by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/109
+  * Renumbered some test scenarios
 
 ### Fixed
 
-* [Fixed] Correct info.description documentation regarding identified device notification by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/90
-* Fix example for Network Access Identifier by @bigludo7 in https://github.com/camaraproject/DeviceRoamingStatus/pull/58
+* Corrected info.description documentation regarding identified device notification by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/90
+* Fixed example for Network Access Identifier by @bigludo7 in https://github.com/camaraproject/DeviceRoamingStatus/pull/58
 * The data of `subscription-ended` events no longer declares the undefined property `countryCode` as required by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/78
 
 ### Removed
@@ -169,34 +172,38 @@ Changes documented below are compared to version 1.1.0.
 
 ### Added
 
-* [Added / Changed / Removed] Updates for Commonalities r4.4 by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/102
-  - Add new test scenarios
+* Updates for Commonalities r4.4 by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/102
+  - Added new test scenarios
     - @device_roaming_status_429.01_Too_Many_Requests
     - @device_roaming_status_429.02_Quota_Exceeded
-* Add examples for roaming status retrieval by @bigludo7 in https://github.com/camaraproject/DeviceRoamingStatus/pull/53
+* Added examples for roaming status retrieval by @bigludo7 in https://github.com/camaraproject/DeviceRoamingStatus/pull/53
 
 ### Changed
 
 * Aligned with CAMARA Commonalities r4.4 (0.9.0) by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/78 and https://github.com/camaraproject/DeviceRoamingStatus/pull/102
-  * Request inputs carry explicit length and range limits, e.g. `x-correlator` (256 characters) and the device identifiers; `device.ipv4Address.publicPort` must be at least 1 (`0` was allowed before but is not a usable port). No request that conforms to the documented semantics is rejected
+  * Request inputs carry explicit length and range limits, e.g.:
+    * `x-correlator` (256 characters) and the device identifiers;
+    * `device.ipv4Address.publicPort` must be at least 1 (`0` was allowed before but is not a usable port).
+
+    No request that conforms to the documented semantics is rejected
   * `countryCode` in the response is limited to 100–999 and `countryName` to at most 5 two-letter country codes
   * Updated the info.description template sections and added the section on request body strictness: requests with undeclared properties are rejected with `400 INVALID_ARGUMENT`
   * Renamed device-roaming-status.feature to device-roaming-status-getRoamingStatus.feature
   * Renumbered some test scenarios
   * Updated examples
-* [Changed] Documentation update for improved clarity by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/96
+* Documentation updated for improved clarity by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/96
   * Defined roaming for this API: the device is connected to a mobile network whose mobile country code (MCC) belongs to another country than that of its home network; connecting to another network of the home country is not roaming
-* Clarify LastStatusTime schema description in YAML by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/56
+* Clarified LastStatusTime schema description in YAML by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/56
 
 ### Fixed
 
-* Fix example label: Multiple Country Codes → Multiple Country Names by @sachinvodafone in https://github.com/camaraproject/DeviceRoamingStatus/pull/54
-* Fix example for Network Access Identifier by @bigludo7 in https://github.com/camaraproject/DeviceRoamingStatus/pull/58
+* Fixed example label: Multiple Country Codes → Multiple Country Names by @sachinvodafone in https://github.com/camaraproject/DeviceRoamingStatus/pull/54
+* Fixed example for Network Access Identifier by @bigludo7 in https://github.com/camaraproject/DeviceRoamingStatus/pull/58
 
 ### Removed
 
-* [Added / Changed / Removed] Updates for Commonalities r4.4 by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/102
-  * Remove 404 NOT_FOUND as a valid error response code for device-roaming-status (404 IDENTIFIER_NOT_FOUND remains)
+* Updates for Commonalities r4.4 by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/102
+  * Removed 404 NOT_FOUND as a valid error response code for device-roaming-status (404 IDENTIFIER_NOT_FOUND remains)
 
 **Full Changelog**: https://github.com/camaraproject/DeviceRoamingStatus/compare/r1.2...r2.3
 
