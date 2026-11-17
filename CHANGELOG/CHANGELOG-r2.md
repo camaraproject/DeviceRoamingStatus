@@ -177,10 +177,13 @@ Changes documented below are compared to version 1.1.0.
 
 ### Changed
 
-* [Added / Changed / Removed] Updates for Commonalities r4.4 by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/102
-  - Rename device-roaming-status.feature to device-roaming-status-getRoamingStatus.feature
-  - Renumber some test scenarios
-  - Update examples
+* Aligned with CAMARA Commonalities r4.4 (0.9.0) by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/78 and https://github.com/camaraproject/DeviceRoamingStatus/pull/102
+  * Request inputs carry explicit length and range limits, e.g. `x-correlator` (256 characters) and the device identifiers; `device.ipv4Address.publicPort` must be at least 1 (`0` was allowed before but is not a usable port). No request that conforms to the documented semantics is rejected
+  * `countryCode` in the response is limited to 100–999 and `countryName` to at most 5 two-letter country codes
+  * Updated the info.description template sections and added the section on request body strictness: requests with undeclared properties are rejected with `400 INVALID_ARGUMENT`
+  * Renamed device-roaming-status.feature to device-roaming-status-getRoamingStatus.feature
+  * Renumbered some test scenarios
+  * Updated examples
 * [Changed] Documentation update for improved clarity by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/96
 * Clarify LastStatusTime schema description in YAML by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/56
 * Update API definitions to fix CAMARA validation warnings and hints by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/78
