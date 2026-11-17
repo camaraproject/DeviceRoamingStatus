@@ -149,11 +149,8 @@ Changes documented below are compared to version 0.8.0.
 
 ### Removed
 
-* [Added / Changed / Removed] Updates for Commonalities r4.4 by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/102
-  * Remove error code 400 OUT_OF_RANGE for device-roaming-status-subscriptions subscription listing
-  * Remove error codes 409 CONFLICT and INCOMPATIBLE_STATE for device-roaming-status-subscriptions subscription creation
-  * Remove error code 403 INVALID_TOKEN_CONTEXT for all device-roaming-status-subscriptions operations
-  * Remove error code 404 IDENTIFIER_NOT_FOUND for device-roaming-status-subscriptions subscription retrieval and deletion (404 NOT_FOUND remains)
+* The `PLAIN` and `REFRESHTOKEN` sink credential types and the `AMQP`, `KAFKA`, `MQTT3`, `MQTT5` and `NATS` protocol values by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/78
+  * Not breaking: 0.8.0 already required `credentialType` `ACCESSTOKEN` and allowed only `HTTP`
 
 ## device-roaming-status 1.2.0
 
