@@ -124,11 +124,16 @@ Changes documented below are compared to version 0.8.0.
 
 ### Changed
 
-* [Added / Changed / Removed] Updates for Commonalities r4.4 by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/102
-  - Renumber some test scenarios
-  - Property subscriptionDetail is now a required subscription creation parameter
-  - Update examples
-* [Changed] Refactor subscription schemas for Commonalities r4.4 and add initialEvent by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/101
+* Aligned with CAMARA Commonalities r4.4 (0.9.0) by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/78, https://github.com/camaraproject/DeviceRoamingStatus/pull/101 and https://github.com/camaraproject/DeviceRoamingStatus/pull/102
+  * Pagination for listing of subscriptions using GET /subscriptions is now supported (see Breaking changes)
+    * Addition of `page` and `perPage` query parameters to control pagination
+    * Returned subscriptions are now embedded in the array `subscriptions` within the response JSON, with the page tracked within the `pagination` JSON
+    * Addition of response headers `X-Total-Count`, `X-Total-Pages` and `Link` to facilitate page navigation
+  * Request inputs carry explicit length and range limits, e.g. `x-correlator` (256 characters); `subscriptionMaxEvents` is at most 1000000; `device.ipv4Address.publicPort` must be at least 1 (`0` was allowed before but is not a usable port)
+  * `countryCode` in notifications is limited to 100–999 and `countryName` to at most 5 two-letter country codes
+  * Added the info.description section on request body strictness: requests with undeclared properties are rejected with `400 INVALID_ARGUMENT`
+  * Renumbered some test scenarios
+  * Updated examples
 * [Changed] Documentation update for improved clarity by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/96
 * [Updated] Update tests scenarios for subscriptions by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/109
   * Renumber some test scenarios
