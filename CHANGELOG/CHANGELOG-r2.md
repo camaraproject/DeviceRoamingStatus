@@ -196,10 +196,7 @@ Changes documented below are compared to version 1.1.0.
 ### Removed
 
 * [Added / Changed / Removed] Updates for Commonalities r4.4 by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/102
-  - Update error response schema to use new common schema or locally defined schema
-    - Remove 403 INVALID_TOKEN_CONTEXT and 404 NOT_FOUND as a valid error response code for device-roaming-status
-* [Removed] Remove the OUT_OF_RANGE error response by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/110
-  * Remove 400 OUT_OF_RANGE as a valid error response code for device-roaming-status
+  * Remove 404 NOT_FOUND as a valid error response code for device-roaming-status (404 IDENTIFIER_NOT_FOUND remains)
 
 **Full Changelog**: https://github.com/camaraproject/DeviceRoamingStatus/compare/r1.2...r2.3
 
