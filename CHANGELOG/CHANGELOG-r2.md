@@ -121,7 +121,6 @@ Changes documented below are compared to version 0.8.0.
     - @roaming_status_subscriptions_retrieve_list_400.02_pagination_invalid_perPage_parameter
 * [Updated] Update tests scenarios for subscriptions by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/109 and https://github.com/camaraproject/DeviceRoamingStatus/pull/119
   * Add scenario @roaming_status_subscriptions_03_subscription_creation_event_validation
-* Add examples for roaming status retrieval by @bigludo7 in https://github.com/camaraproject/DeviceRoamingStatus/pull/53
 
 ### Changed
 
