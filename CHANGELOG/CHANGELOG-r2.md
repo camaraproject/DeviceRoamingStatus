@@ -140,7 +140,6 @@ Changes documented below are compared to version 0.8.0.
 * Documentation updated for improved clarity by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/96
   * Defined roaming for this API: the device is connected to a mobile network whose mobile country code (MCC) belongs to another country than that of its home network; connecting to another network of the home country is not roaming
   * Clarified that `roaming-change-country` events are sent when the device remains roaming and the country name changes
-  * Clarified that `roaming-change-country` events are sent when the device remains roaming and the country name changes
 * Updated tests scenarios for subscriptions by @eric-murray in https://github.com/camaraproject/DeviceRoamingStatus/pull/109
   * Renumbered some test scenarios
 
