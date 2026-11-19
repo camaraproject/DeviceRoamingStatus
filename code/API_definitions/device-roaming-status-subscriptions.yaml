@@ -69,7 +69,7 @@ info:
     | roaming-change-country | Not roaming                                | No(*)                                      |
     | roaming-change-country | Roaming                                    | No(*)                                      |
 
-    (*) Setting `initialEvent` to `true` does not generate any initial event for the `roaming-change-country` event type.
+    (*) Setting `initialEvent` to `true` does not generate any inital even for the `roaming-change-country` event type.
 
     **Clarification on the `roaming-change-country` event type:**\
     The `roaming-change-country` event is sent only when the device is roaming and remains roaming following a change in country name.
@@ -91,7 +91,7 @@ info:
     A detailed description of the event subscription and notification mechanism is provided in the `CAMARA API Event Subscription and Notification Guide`.
 
     _**WARNING**:\
-      API consumers may optionally provide a callback URL on which roaming status notifications from the API provider can be received. This callback endpoint must be exposed by API consumer as `POST /{$request.body#/sink}`. When an event occurs, the API provider will send the event to the URI specified by `sink`._
+      API consumers may optionally provide a callback URL on which reachability status notifications from the API provider can be received. This callback endpoint must be exposed by API consumer as `POST /{$request.body#/sink}`. When an event occurs, the API provider will send the event to the URI specified by `sink`._
 
     <!-- CAMARA:MANDATORY:authorization-and-authentication:BEGIN -->
 
@@ -768,7 +768,7 @@ components:
               $ref: "#/components/schemas/RoamingChangeCountry"
 
     RoamingChangeCountry:
-      description: Event detail structure for org.camaraproject.device-roaming-status-subscriptions.v0.roaming-change-country event
+      description: Event detail structure for org.camaraproject.device-roaming-status-subscriptions.v0.roaming-on event
       allOf:
         - $ref: "#/components/schemas/BasicDeviceEventData"
         - type: object
