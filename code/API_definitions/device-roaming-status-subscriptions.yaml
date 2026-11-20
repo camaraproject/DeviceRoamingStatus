@@ -618,6 +618,7 @@ components:
             $ref: "#/components/schemas/ApiEventType"
         config:
           $ref: "#/components/schemas/Config"
+      additionalProperties: false
       discriminator:
         propertyName: protocol
         mapping:
